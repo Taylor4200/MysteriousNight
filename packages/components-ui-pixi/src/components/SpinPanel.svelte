@@ -85,7 +85,7 @@
 		<Button
 			sizes={{ width: spinButtonRadius * 2, height: spinButtonRadius * 2 }}
 			onpress={handleSpin}
-			disabled={isSpinning || !stateBetDerived.isBetCostAvailable()}
+			disabled={isSpinning}
 			anchor={0.5}
 		>
 			{#snippet children({ center, hovered, pressed })}
@@ -101,30 +101,6 @@
 						anchor={0.5}
 						alpha={0.9}
 					/>
-
-					<!-- Turbo Indicator (top-left corner) -->
-					{#if turboMode}
-						<Container x={-spinButtonRadius + 20} y={-spinButtonRadius + 20}>
-							<Rectangle
-								width={20}
-								height={20}
-								backgroundColor={0x00ff88}
-								borderColor={0xffffff}
-								borderWidth={1}
-								borderRadius={10}
-								anchor={0.5}
-							/>
-							<Text
-								text=">>"
-								style={{
-									fontSize: 12,
-									fill: 0xffffff,
-									fontWeight: 'bold'
-								}}
-								anchor={0.5}
-							/>
-						</Container>
-					{/if}
 
 					<!-- Spin Icon -->
 					<Text

@@ -32,7 +32,7 @@ const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 	if (rawSymbol.name === 'W') {
 		eventEmitter.broadcast({
 			type: 'soundOnce',
-			name: 'sfx_multiplier_landing',
+			name: 'Wild_Drop',
 		});
 	}
 };
@@ -44,9 +44,10 @@ const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
 		initialSymbols: INITIAL_BOARD[reelIndex],
 		initialSymbolState: INITIAL_SYMBOL_STATE,
 		onReelStopping: () => {
+			// Trigger sound when reel starts stopping (earlier in animation)
 			eventEmitter.broadcast({
 				type: 'soundOnce',
-				name: 'sfx_reel_stop_1',
+				name: 'Reel1',
 				forcePlay: !stateBet.isTurbo,
 			});
 		},

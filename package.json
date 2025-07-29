@@ -4,6 +4,8 @@
   "private": true,
 	"license": "MIT",
   "scripts": {
+    "create-audio-sprite": "node scripts/create-audio-sprite.js",
+    "create-manual-audio-sprite": "node scripts/create-manual-audio-sprite.js",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "dev": "turbo run dev",

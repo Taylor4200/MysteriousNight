@@ -85,7 +85,7 @@
 					anchor={{ x: 1, y: 0 }}
 					text="ZEDGE"
 					style={{
-						fontFamily: 'proxima-nova',
+						fontFamily: 'orbitron',
 						fontSize: REM * 1,
 						fontWeight: '700',
 						letterSpacing: 2,

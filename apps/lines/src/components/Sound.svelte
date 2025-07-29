@@ -27,15 +27,15 @@
 		soundBetMode: async ({ betModeKey }) => {
 			if (betModeKey === 'SUPERSPIN') {
 				// check if SUPERSPIN, when changing the bet mode.
-				sound.players.once.play({ name: 'sfx_winlevel_end' });
+				sound.players.once.play({ name: 'WinLevel-Nice' });
 				await waitForTimeout(SECOND);
-				sound.players.music.play({ name: 'bgm_freespin' });
+				sound.players.music.play({ name: 'Freespin_music' });
 			} else {
-				sound.players.music.play({ name: 'bgm_main' });
+				sound.players.music.play({ name: 'Basegame_music' });
 			}
 		},
-		soundPressGeneral: () => sound.players.once.play({ name: 'sfx_btn_general' }),
-		soundPressBet: () => sound.players.once.play({ name: 'sfx_btn_spin' }),
+		soundPressGeneral: () => sound.players.once.play({ name: 'BtnGeneral' }),
+		soundPressBet: () => sound.players.once.play({ name: 'Spin' }),
 		// scatterCounter
 		soundScatterCounterIncrease: () => (context.stateGame.scatterCounter = context.stateGame.scatterCounter + 1), // prettier-ignore
 		soundScatterCounterClear: () => (context.stateGame.scatterCounter = 0),
@@ -50,15 +50,15 @@
 	onMount(() => {
 		if (stateBet.activeBetModeKey === 'SUPERSPIN') {
 			// check if SUPERSPIN, when resume bet and the bet is a super spin.
-			sound.players.music.play({ name: 'bgm_freespin' });
+			sound.players.music.play({ name: 'Freespin_music' });
 		} else {
-			sound.players.music.play({ name: 'bgm_main' });
+			sound.players.music.play({ name: 'Basegame_music' });
 
 			//How to control volume per soundfile(use fade)
-			// sound.players.music.fade({ name: 'bgm_main', from: 0, to: 1, duration: 2000 });
+			// sound.players.music.fade({ name: 'Basegame_music', from: 0, to: 1, duration: 2000 });
 
 			//How to control rate per soundfile
-			// sound.players.music.rate({ rate: 2, name: 'bgm_main'}); // change play back rate(1: default, 0: slow, 1+ fasterm and higher pitch )
+			// sound.players.music.rate({ rate: 2, name: 'Basegame_music'}); // change play back rate(1: default, 0: slow, 1+ fasterm and higher pitch )
 		}
 	});
 </script>

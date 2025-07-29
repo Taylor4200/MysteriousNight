@@ -44,7 +44,6 @@ export type LayoutUiProps = {
 	amountBet: Snippet<[{ stacked?: boolean }]>;
 	buttonBuyBonus: Snippet<[Partial<ButtonProps>]>;
 	buttonBet: Snippet<[Partial<ButtonProps>]>;
-	buttonTurbo: Snippet<[Partial<ButtonProps>]>;
 	buttonAutoSpin: Snippet<[Partial<ButtonProps>]>;
 	buttonIncrease: Snippet<[Partial<ButtonProps>]>;
 	buttonDecrease: Snippet<[Partial<ButtonProps>]>;

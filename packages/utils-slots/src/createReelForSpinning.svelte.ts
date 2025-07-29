@@ -240,6 +240,8 @@ export function createReelForSpinning<TRawSymbol extends object, TSymbolState ex
 		}
 
 		reelState.motion = 'bouncing';
+		// Trigger reel stopping sound immediately when reel starts bouncing (stopping animation)
+		reelOptions.onReelStopping();
 		onSpinFinishing();
 		await removePaddingAndBounceBack();
 		reelState.motion = 'stopped';

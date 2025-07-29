@@ -17,7 +17,6 @@
 	import ButtonSettings from './ButtonSettings.svelte';
 	import ButtonBuyBonus from './ButtonBuyBonus.svelte';
 	import ButtonBet from './ButtonBet.svelte';
-	import ButtonTurbo from './ButtonTurbo.svelte';
 	import ButtonAutoSpin from './ButtonAutoSpin.svelte';
 	import ButtonIncrease from './ButtonIncrease.svelte';
 	import ButtonDecrease from './ButtonDecrease.svelte';
@@ -74,10 +73,6 @@
 
 		{#snippet buttonBet(buttonProps)}
 			<ButtonBet {...buttonProps} />
-		{/snippet}
-
-		{#snippet buttonTurbo(buttonProps)}
-			<ButtonTurbo {...buttonProps} />
 		{/snippet}
 
 		{#snippet buttonAutoSpin(buttonProps)}

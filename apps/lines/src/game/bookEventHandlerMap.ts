@@ -21,17 +21,17 @@ const winLevelSoundsPlay = ({ winLevelData }: { winLevelData: WinLevelData }) =>
 		eventEmitter.broadcast({ type: 'soundMusic', name: winLevelData.sound.bgm });
 	}
 	if (winLevelData?.type === 'big') {
-		eventEmitter.broadcast({ type: 'soundLoop', name: 'sfx_bigwin_coinloop' });
+		eventEmitter.broadcast({ type: 'soundLoop', name: 'CoinLoopBigWins' });
 	}
 };
 
 const winLevelSoundsStop = () => {
-	eventEmitter.broadcast({ type: 'soundStop', name: 'sfx_bigwin_coinloop' });
+	eventEmitter.broadcast({ type: 'soundStop', name: 'CoinLoopBigWins' });
 	if (stateBet.activeBetModeKey === 'SUPERSPIN' || stateGame.gameType === 'freegame') {
 		// check if SUPERSPIN, when finishing a bet.
-		eventEmitter.broadcast({ type: 'soundMusic', name: 'bgm_freespin' });
+		eventEmitter.broadcast({ type: 'soundMusic', name: 'Freespin_music' });
 	} else {
-		eventEmitter.broadcast({ type: 'soundMusic', name: 'bgm_main' });
+		eventEmitter.broadcast({ type: 'soundMusic', name: 'Basegame_music' });
 	}
 	eventEmitter.broadcastAsync({ type: 'uiShow' });
 };
@@ -85,7 +85,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		});
 
 		// Play sound and animate symbols with timeout
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_winlevel_small' });
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'WinLevel_Small' });
 		
 		// Create a timeout promise that resolves after 1 second (30 frames at 30fps)
 		const timeoutPromise = new Promise(resolve => setTimeout(resolve, 1000));
@@ -107,15 +107,15 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 	},
 	freeSpinTrigger: async (bookEvent: BookEventOfType<'freeSpinTrigger'>) => {
 		// animate scatters
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_scatter_win_v2' });
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'ScatterWinV2' });
 		await animateSymbols({ positions: bookEvent.positions });
 		// show free spin intro
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_superfreespin' });
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'FsRespin' });
 		await eventEmitter.broadcastAsync({ type: 'uiHide' });
 		await eventEmitter.broadcastAsync({ type: 'transition' });
 		eventEmitter.broadcast({ type: 'freeSpinIntroShow' });
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'jng_intro_fs' });
-		eventEmitter.broadcast({ type: 'soundMusic', name: 'bgm_freespin' });
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'AnticipationStart' });
+		eventEmitter.broadcast({ type: 'soundMusic', name: 'Freespin_music' });
 		await eventEmitter.broadcastAsync({
 			type: 'freeSpinIntroUpdate',
 			totalFreeSpins: bookEvent.totalFs,
@@ -153,7 +153,7 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		stateGame.gameType = 'basegame';
 		eventEmitter.broadcast({ type: 'boardFrameGlowHide' });
 		eventEmitter.broadcast({ type: 'freeSpinOutroShow' });
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_youwon_panel' });
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'Sfx-You-Won-Panel' });
 		winLevelSoundsPlay({ winLevelData });
 		await eventEmitter.broadcastAsync({
 			type: 'freeSpinOutroCountUp',

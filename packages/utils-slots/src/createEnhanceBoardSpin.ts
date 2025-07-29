@@ -69,7 +69,7 @@ export function createEnhanceBoardSpin<TReel extends Reel<any, any>>({
 				paddingPosition,
 				previousPaddingSize,
 				onSpinFinishing: () => {
-					reel.onReelStopping();
+					// Trigger reel stopping sound immediately when reel starts finishing
 					const nextReelIndex = reelIndex + 1;
 					const isNextReelAnticipated = (revealEvent.anticipation?.[nextReelIndex] || 0) > 0;
 					if (isNextReelAnticipated) board[nextReelIndex].reelState.anticipating = true;
