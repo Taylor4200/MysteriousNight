@@ -25,7 +25,10 @@
 				maxWidth={props.maxWidth}
 				src={props.src}
 				onload={async () => {
-					await waitForTimeout(props.timeout);
+					// If timeout is 0, don't wait - let the GIF complete naturally
+					if (props.timeout > 0) {
+						await waitForTimeout(props.timeout);
+					}
 					loading = false;
 					props.oncomplete?.();
 				}}

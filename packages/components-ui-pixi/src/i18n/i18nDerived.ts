@@ -4,9 +4,9 @@ export const i18nDerived = {
 	audio: () => stateI18nDerived.translate('AUDIO'),
 	balance: () => stateI18nDerived.translate('BALANCE'),
 	win: () => stateI18nDerived.translate('WIN'),
-	bet: () => stateUrlDerived.social() ? 'SPIN' : stateI18nDerived.translate('BET'),
+	bet: () => stateUrlDerived.social() ? 'SPIN' : stateI18nDerived.translate('SPIN'),
 	stop: () => stateI18nDerived.translate('STOP'),
-	buyBonus: () => stateUrlDerived.social() ? 'PLAY BONUS' : stateI18nDerived.translate('BUY BONUS'),
+	buyBonus: () => stateUrlDerived.social() ? 'PLAY BONUS' : stateI18nDerived.translate('BONUS'),
 	disable: () => stateI18nDerived.translate('DISABLE'),
 	freeSpins: () => stateI18nDerived.translate('FREE SPINS'),
 	//

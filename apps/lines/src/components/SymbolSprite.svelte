@@ -28,7 +28,7 @@
 	x={props.x}
 	y={props.y}
 	anchor={0.5}
-	key={props.symbolInfo.assetKey}
+	key={'assetKey' in props.symbolInfo ? props.symbolInfo.assetKey : 'sprite'}
 	width={SYMBOL_SIZE * props.symbolInfo.sizeRatios.width}
 	height={SYMBOL_SIZE * props.symbolInfo.sizeRatios.height}
 />

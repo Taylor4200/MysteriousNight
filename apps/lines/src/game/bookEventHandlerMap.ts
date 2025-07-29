@@ -46,6 +46,7 @@ const animateSymbols = async ({ positions }: { positions: Position[] }) => {
 
 export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContext> = {
 	reveal: async (bookEvent: BookEventOfType<'reveal'>, { bookEvents }: BookEventContext) => {
+		console.log('[Lines Game] reveal handler called');
 		const isBonusGame = checkIsMultipleRevealEvents({ bookEvents });
 		if (isBonusGame) {
 			eventEmitter.broadcast({ type: 'stopButtonEnable' });
@@ -58,15 +59,51 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 			paddingBoard: config.paddingReels[bookEvent.gameType],
 		});
 		eventEmitter.broadcast({ type: 'soundScatterCounterClear' });
+		console.log('[Lines Game] reveal handler completed');
 	},
 	winInfo: async (bookEvent: BookEventOfType<'winInfo'>) => {
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_winlevel_small' });
-		await sequence(bookEvent.wins, async (win) => {
-			await animateSymbols({ positions: win.positions });
+		console.log('[Lines Game] winInfo handler called');
+		// Update WIN bar immediately
+		stateBet.winBookEventAmount = bookEvent.totalWin;
+		
+		// Show individual win amounts (non-blocking)
+		await eventEmitter.broadcastAsync({
+			type: 'showLineWinAmounts',
+			wins: bookEvent.wins.map((win) => {
+				// Calculate average position for display
+				const avgReel = Math.round(win.positions.reduce((sum, pos) => sum + pos.reel, 0) / win.positions.length);
+				const avgRow = Math.round(win.positions.reduce((sum, pos) => sum + pos.row, 0) / win.positions.length);
+				
+				return {
+					win: win.meta.winWithoutMult,
+					mult: win.meta.globalMult,
+					result: win.meta.winWithoutMult * win.meta.globalMult,
+					reel: avgReel,
+					row: avgRow,
+				};
+			}),
 		});
+
+		// Play sound and animate symbols with timeout
+		eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_winlevel_small' });
+		
+		// Create a timeout promise that resolves after 1 second (30 frames at 30fps)
+		const timeoutPromise = new Promise(resolve => setTimeout(resolve, 1000));
+		
+		// Try to animate symbols, but don't wait forever
+		const animationPromise = Promise.all(bookEvent.wins.map(async (win) => {
+			await animateSymbols({ positions: win.positions });
+		}));
+		
+		// Wait for either animations to complete OR timeout
+		await Promise.race([animationPromise, timeoutPromise]);
+		
+		console.log('[Lines Game] winInfo handler completed');
 	},
 	setTotalWin: async (bookEvent: BookEventOfType<'setTotalWin'>) => {
+		console.log('[Lines Game] setTotalWin handler called');
 		stateBet.winBookEventAmount = bookEvent.amount;
+		console.log('[Lines Game] setTotalWin handler completed');
 	},
 	freeSpinTrigger: async (bookEvent: BookEventOfType<'freeSpinTrigger'>) => {
 		// animate scatters
@@ -134,19 +171,28 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 	},
 	setWin: async (bookEvent: BookEventOfType<'setWin'>) => {
 		const winLevelData = winLevelMap[bookEvent.winLevel as WinLevel];
+		const isBigWin = winLevelData.type === 'big';
 
-		eventEmitter.broadcast({ type: 'winShow' });
-		winLevelSoundsPlay({ winLevelData });
-		await eventEmitter.broadcastAsync({
-			type: 'winUpdate',
-			amount: bookEvent.amount,
-			winLevelData,
-		});
-		winLevelSoundsStop();
-		eventEmitter.broadcast({ type: 'winHide' });
+		if (isBigWin) {
+			// Big wins (levels 6+): Show full celebration screen
+			eventEmitter.broadcast({ type: 'winShow' });
+			winLevelSoundsPlay({ winLevelData });
+			await eventEmitter.broadcastAsync({
+				type: 'winUpdate',
+				amount: bookEvent.amount,
+				winLevelData,
+			});
+			winLevelSoundsStop();
+			eventEmitter.broadcast({ type: 'winHide' });
+		} else {
+			// Small/medium wins (levels 1-5): Just update WIN bar, no celebration
+			// WIN bar is already updated above via stateBet.winBookEventAmount
+		}
 	},
 	finalWin: async (bookEvent: BookEventOfType<'finalWin'>) => {
-		// Do nothing
+		console.log('[Lines Game] finalWin handler called - cleaning up UI elements');
+		// Clean up any remaining UI elements from the spin
+		eventEmitter.broadcast({ type: 'lineWinAmountsHide' });
 	},
 	// customised
 	createBonusSnapshot: async (bookEvent: BookEventOfType<'createBonusSnapshot'>) => {

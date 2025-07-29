@@ -25,7 +25,11 @@
 		state={props.reelSymbol.symbolState}
 		rawSymbol={props.reelSymbol.rawSymbol}
 		oncomplete={() => {
-			if (props.reelSymbol.symbolState === 'win') props.reelSymbol.oncomplete();
+			console.log(`[ReelSymbol] Symbol animation complete for ${props.reelSymbol.rawSymbol.name} in state ${props.reelSymbol.symbolState}`);
+			if (props.reelSymbol.symbolState === 'win') {
+				console.log(`[ReelSymbol] Calling oncomplete for win symbol ${props.reelSymbol.rawSymbol.name}`);
+				props.reelSymbol.oncomplete();
+			}
 			if (props.reelSymbol.symbolState === 'land') props.reelSymbol.symbolState = 'static';
 		}}
 	/>

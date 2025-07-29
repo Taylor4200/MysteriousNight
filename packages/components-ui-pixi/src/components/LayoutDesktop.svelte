@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { stateUi } from 'state-shared';
+	import { stateUi, stateBet } from 'state-shared';
 	import { BLACK } from 'constants-shared/colors';
 	import { MainContainer } from 'components-layout';
 	import { Container, Rectangle, anchorToPivot } from 'pixi-svelte';
@@ -7,6 +7,7 @@
 	import { DESKTOP_BASE_SIZE, DESKTOP_BACKGROUND_WIDTH_LIST } from '../constants';
 	import { getContext } from '../context';
 	import type { LayoutUiProps } from '../types';
+	import SpinPanel from './SpinPanel.svelte';
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
@@ -20,7 +21,21 @@
 	{@render props.logo()}
 </Container>
 
+<!-- Background shader that scales the entire screen -->
+<Rectangle
+	width={context.stateLayoutDerived.canvasSizes().width}
+	height={context.stateLayoutDerived.canvasSizes().height}
+	backgroundColor={0x000000}
+	borderColor={0x333333}
+	borderWidth={1}
+	anchor={0.5}
+	alpha={0}
+	x={context.stateLayoutDerived.canvasSizes().width * 0.5}
+	y={context.stateLayoutDerived.canvasSizes().height * 0.5}
+/>
+
 <MainContainer standard alignVertical="bottom">
+	<!-- Professional slot UI bottom bar with precise positioning -->
 	<Container
 		x={context.stateLayoutDerived.mainLayoutStandard().width * 0.5}
 		y={context.stateLayoutDerived.mainLayoutStandard().height - DESKTOP_BASE_SIZE - 10}
@@ -32,45 +47,48 @@
 			},
 		})}
 	>
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 160} x={900 - 500} scale={0.8}>
-			{@render props.amountBalance({ stacked: true })}
-		</Container>
+		<!-- Dark background bar with very slim outline -->
+		<Rectangle
+			width={DESKTOP_BACKGROUND_WIDTH_LIST.reduce((sum, width) => sum + width, 0)}
+			height={DESKTOP_BASE_SIZE}
+			backgroundColor={0x0a0a0a}
+			borderColor={0x333333}
+			borderWidth={1}
+			anchor={0.1}
+			alpha={0}
+		/>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 160} x={900} scale={0.8}>
-			{@render props.amountWin({ stacked: true })}
-		</Container>
-
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 160} x={900 + 500} scale={0.8}>
-			{@render props.amountBet({ stacked: true })}
-		</Container>
-
+		<!-- Left section: Menu Button -->
 		<Container y={DESKTOP_BASE_SIZE * 0.5} x={220} scale={0.8}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={220 + 150} scale={0.8}>
+		<!-- Balance Panel (left block) - properly positioned -->
+		<Container y={DESKTOP_BASE_SIZE * 0.5 - 5} x={450} scale={0.5}>
+			{@render props.amountBalance({ stacked: true })}
+		</Container>
+
+		<!-- Bet Panel (center-left) - properly positioned -->
+		<Container y={DESKTOP_BASE_SIZE * 0.5 - 5} x={550} scale={0.5}>
+			{@render props.amountBet({ stacked: true })}
+		</Container>
+
+		<!-- Buy Bonus Button (high-contrast rectangular) -->
+		<Container y={DESKTOP_BASE_SIZE * 0.5 - 460} x={1460} scale={0.9}>
 			{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 4} scale={0.8}>
-			{@render props.buttonAutoSpin({ anchor: 0.5 })}
+		<!-- Unified Spin Panel (Center) -->
+		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1600} scale={1.0}>
+			<SpinPanel anchor={{ x: 0.5, y: 0.4 }} />
 		</Container>
 
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 5} scale={0.8}>
-			{@render props.buttonBet({ anchor: 0.5 })}
-		</Container>
-
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={160 + 150 * 6} scale={0.8}>
-			{@render props.buttonTurbo({ anchor: 0.5 })}
-		</Container>
-
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1440} scale={0.8}>
-			{@render props.buttonDecrease({ anchor: 0.5 })}
-		</Container>
-
-		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1440 + 150} scale={0.8}>
-			{@render props.buttonIncrease({ anchor: 0.5 })}
-		</Container>
+		<!-- Win Panel (right side, only show if win > 0 or during bonus) -->
+		{#if stateBet.winBookEventAmount > 0}
+			<Container y={DESKTOP_BASE_SIZE * 0.5 - 50} x={890} scale={1}>
+				{@render props.amountWin({ stacked: true })}
+			</Container>
+		{/if}
 	</Container>
 </MainContainer>
 
@@ -80,7 +98,7 @@
 		cursor="pointer"
 		alpha={0.5}
 		anchor={0.5}
-		backgroundColor={BLACK}
+		backgroundColor={0x000000}
 		width={context.stateLayoutDerived.canvasSizes().width}
 		height={context.stateLayoutDerived.canvasSizes().height}
 		x={context.stateLayoutDerived.canvasSizes().width * 0.5}

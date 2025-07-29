@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Text } from 'pixi-svelte';
+	import { Text, Rectangle } from 'pixi-svelte';
 	import { Button, type ButtonProps } from 'components-pixi';
 	import { stateModal, stateBet, stateBetDerived } from 'state-shared';
 
@@ -10,7 +10,7 @@
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
 	const { stateXstateDerived, eventEmitter } = getContext();
-	const sizes = { width: UI_BASE_SIZE, height: UI_BASE_SIZE };
+	const sizes = { width: UI_BASE_SIZE * 1.4, height: UI_BASE_SIZE * 0.9 }; // More rectangular
 	const disabled = $derived(!stateXstateDerived.isIdle());
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 
@@ -49,37 +49,58 @@
 			pressed,
 		})}
 
-		<UiSprite
-			key="buyBonus"
+		<!-- Border only - no background -->
+		<Rectangle
 			{...center}
 			anchor={0.5}
 			width={sizes.width}
 			height={sizes.height}
-			{...disabled
-				? {
-						backgroundColor: 0xaaaaaa,
-					}
-				: {}}
-			{...active
-				? {
-						borderWidth: 10,
-						borderColor: 0xffffff,
-					}
-				: {}}
+			backgroundColor={0x00000000}
+			borderColor={0x00000000}
+			borderWidth={0}
+			borderRadius={12}
+			alpha={disabled ? 0.6 : 1}
 		/>
+
+		<!-- Bright glow effect on hover -->
+		{#if hovered && !disabled}
+			<Rectangle
+				{...center}
+				anchor={0.5}
+				width={sizes.width + 12}
+				height={sizes.height + 12}
+				backgroundColor={0xffffff}
+				alpha={0.3}
+				borderRadius={16}
+			/>
+		{/if}
+
+		<!-- Active state with bright border -->
+		{#if active}
+			<Rectangle
+				{...center}
+				anchor={0.5}
+				width={sizes.width + 6}
+				height={sizes.height + 6}
+				backgroundColor={0xffffff}
+				alpha={0.4}
+				borderRadius={14}
+			/>
+		{/if}
 
 		<Text
 			{...center}
 			anchor={0.5}
-			text={state === 'active' ? i18nDerived.disable() : i18nDerived.buyBonus()}
+			text={state === 'active' ? i18nDerived.disable() : 'BUY BONUS'}
 			style={{
 				align: 'center',
 				wordWrap: true,
 				wordWrapWidth: 200,
 				fontFamily: 'proxima-nova',
-				fontWeight: '600',
+				fontWeight: '700',
 				fontSize: UI_BASE_FONT_SIZE * 0.9,
-				fill: 0xffffff,
+				fill: disabled ? 0x888888 : (active ? 0x000000 : 0xffffff),
+				letterSpacing: 1,
 			}}
 		/>
 	{/snippet}

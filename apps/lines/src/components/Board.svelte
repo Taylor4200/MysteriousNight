@@ -16,6 +16,7 @@
 	import { BoardContext } from 'components-shared';
 
 	import { getContext } from '../game/context';
+	import { getSymbolInfo } from '../game/utils';
 	import BoardContainer from './BoardContainer.svelte';
 	import BoardMask from './BoardMask.svelte';
 	import BoardBase from './BoardBase.svelte';
@@ -30,15 +31,21 @@
 		boardShow: () => (show = true),
 		boardHide: () => (show = false),
 		boardWithAnimateSymbols: async ({ symbolPositions }) => {
+			console.log(`[Board] Starting symbol animations for ${symbolPositions.length} positions`);
 			const getPromises = () =>
 				symbolPositions.map(async (position) => {
 					const reelSymbol = context.stateGame.board[position.reel].reelState.symbols[position.row];
+					console.log(`[Board] Animating symbol ${reelSymbol.rawSymbol.name} at position ${position.reel},${position.row}`);
+					
+					// First change to win state, then wait for completion
 					reelSymbol.symbolState = 'win';
 					await waitForResolve((resolve) => (reelSymbol.oncomplete = resolve));
 					reelSymbol.symbolState = 'postWinStatic';
+					console.log(`[Board] Symbol animation completed for ${reelSymbol.rawSymbol.name}`);
 				});
 
 			await Promise.all(getPromises());
+			console.log('[Board] All symbol animations completed');
 		},
 	});
 
