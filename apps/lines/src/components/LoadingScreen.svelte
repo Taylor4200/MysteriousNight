@@ -16,9 +16,8 @@
 	let loadingType = $state<'start' | 'transition'>('start');
 	let loadingAlpha = $state(1);
 
-	// Perfect fit for 1200x675 Stake iframe - same as main game
-	const IFRAME_WIDTH = 1200;
-	const IFRAME_HEIGHT = 675;
+	// Use dynamic canvas sizing like cluster app
+	const canvasSizes = context.stateLayoutDerived.canvasSizes();
 
 	// Animate the loading spinner with flashing effect
 	$effect(() => {
@@ -44,10 +43,10 @@
 	<Sprite 
 		key="loadingBackground"
 		anchor={0.5}
-		x={IFRAME_WIDTH * 0.5}
-		y={IFRAME_HEIGHT * 0.5}
-		width={IFRAME_WIDTH}
-		height={IFRAME_HEIGHT}
+		x={canvasSizes.width * 0.5}
+		y={canvasSizes.height * 0.5}
+		width={canvasSizes.width}
+		height={canvasSizes.height}
 	/>
 	
 	<!-- Full screen clickable area when loaded -->
@@ -58,15 +57,15 @@
 			onpointerdown={handlePress}
 			draw={(graphics) => {
 				graphics.clear();
-				graphics.rect(0, 0, IFRAME_WIDTH, IFRAME_HEIGHT);
+				graphics.rect(0, 0, canvasSizes.width, canvasSizes.height);
 				graphics.fill({ color: 0x000000, alpha: 0 }); // Transparent
 			}}
 		/>
 	{/if}
 	
 	<Container
-		x={IFRAME_WIDTH * 0.5}
-		y={IFRAME_HEIGHT * 0.5}
+		x={canvasSizes.width * 0.5}
+		y={canvasSizes.height * 0.5}
 	>
 		<!-- Logo -->
 		<Sprite 

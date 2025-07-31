@@ -9,9 +9,8 @@
 	const showBaseBackground = $derived(context.stateGame.gameType === 'basegame');
 	const showFeatureBackground = $derived(context.stateGame.gameType === 'freegame');
 	
-	// Perfect fit for 1200x675 Stake iframe
-	const IFRAME_WIDTH = 1200;
-	const IFRAME_HEIGHT = 675;
+	// Use dynamic canvas sizing like cluster app
+	const canvasSizes = context.stateLayoutDerived.canvasSizes();
 </script>
 
 <Rectangle {...context.stateLayoutDerived.canvasSizes()} backgroundColor={0x000000} zIndex={-3} />
@@ -20,10 +19,10 @@
 	<Sprite 
 		key="background" 
 		anchor={0.5}
-		x={IFRAME_WIDTH * 0.5}
-		y={IFRAME_HEIGHT * 0.5}
-		width={IFRAME_WIDTH}
-		height={IFRAME_HEIGHT}
+		x={canvasSizes.width * 0.5}
+		y={canvasSizes.height * 0.5}
+		width={canvasSizes.width}
+		height={canvasSizes.height}
 	/>
 </FadeContainer>
 
@@ -31,9 +30,9 @@
 	<Sprite 
 		key="background" 
 		anchor={0.5}
-		x={IFRAME_WIDTH * 0.5}
-		y={IFRAME_HEIGHT * 0.5}
-		width={IFRAME_WIDTH}
-		height={IFRAME_HEIGHT}
+		x={canvasSizes.width * 0.5}
+		y={canvasSizes.height * 0.5}
+		width={canvasSizes.width}
+		height={canvasSizes.height}
 	/>
 </FadeContainer>

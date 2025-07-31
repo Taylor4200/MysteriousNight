@@ -118,6 +118,7 @@ export default {
 	background: {
 		type: 'sprite',
 		src: '/assets/main_game/back.png',
+		preload: true,
 	},
 	logo: {
 		type: 'sprite',
@@ -151,18 +152,22 @@ export default {
 	bonusGameBackground: {
 		type: 'sprite',
 		src: new URL('../../assets/png/bonus_game/bonus_game_back.png', import.meta.url).href,
+		preload: true,
 	},
 	chestClosed: {
 		type: 'sprite',
 		src: new URL('../../assets/animations/chest_opening/chest_01.png', import.meta.url).href,
+		preload: true,
 	},
 	chestOpened: {
 		type: 'sprite',
 		src: new URL('../../assets/animations/chest_opening/chest_23.png', import.meta.url).href,
+		preload: true,
 	},
 	chestOpening: {
 		type: 'spriteSheet',
 		src: new URL('../../assets/animations/chest_opening/chest_opening.json', import.meta.url).href,
+		preload: true,
 	},
 	// Keep existing non-symbol assets for now
 	M: {
