@@ -249,7 +249,7 @@
 	"image": "Bats.png",
 	"format": "RGBA8888",
 	"size": {"w":3744,"h":2136},
-	"scale": 1,
+	"scale": "1",
 	"smartupdate": "$TexturePacker:SmartUpdate:0a488b7c23617023cd2227b4d0268ff8:8c4ec961c33be62a130a3c380eac7a4f:c6b9d8d435437d57575e6f059b582bdc$"
 }
 }
