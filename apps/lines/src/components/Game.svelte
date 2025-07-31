@@ -25,6 +25,7 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
+	import BonusGameChests from './BonusGameChests.svelte';
 	import I18nTest from './I18nTest.svelte';
 	import HitAnimations from './HitAnimations.svelte';
 	import AmbientBats from './AmbientBats.svelte';
@@ -97,6 +98,7 @@
 		</UI>
 		<Win />
 		<FreeSpinIntro />
+		<BonusGameChests />
 		{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
 			<FreeSpinCounter />
 		{/if}

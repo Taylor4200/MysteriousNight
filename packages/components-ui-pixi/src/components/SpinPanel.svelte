@@ -5,6 +5,7 @@
 	import { getContext } from '../context';
 	import { stateUi, stateBet, stateBetDerived, stateConfig } from 'state-shared';
 	import AutoSpinsModal from './AutoSpinsModal.svelte';
+	import OnHotkey from '../../../components-shared/src/components/OnHotkey.svelte';
 
 	const context = getContext();
 
@@ -20,16 +21,31 @@
 	let isSpinning = $derived(!context.stateXstateDerived.isIdle());
 	let autoplaySpinsLeft = $derived(stateBet.autoSpinsCounter);
 	let isAutoplayActive = $derived(autoplaySpinsLeft > 0);
+	let isBonusGame = $derived(stateUi.freeSpinCounterShow);
 
 	// Functions
 	function handleSpin() {
 		if (!isSpinning) {
-			context.eventEmitter.broadcast({ type: 'soundPressBet' });
-			context.eventEmitter.broadcast({ type: 'bet' });
+			// During bonus games, only handle turbo functionality, don't trigger spin
+			if (isBonusGame) {
+				context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+				// Temporarily enable turbo for the next spin
+				const originalTurbo = stateBet.isTurbo;
+				stateBet.isTurbo = true;
+				// Reset turbo after a short delay to ensure it's applied for the next spin
+				setTimeout(() => {
+					stateBet.isTurbo = originalTurbo;
+				}, 100);
+			} else {
+				// Normal spin functionality for non-bonus games
+				context.eventEmitter.broadcast({ type: 'soundPressBet' });
+				context.eventEmitter.broadcast({ type: 'bet' });
+			}
 		}
 	}
 
 	function handleTurboToggle() {
+		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
 		turboMode = !turboMode;
 		stateBetDerived.updateIsTurbo(turboMode, { persistent: true });
 	}
@@ -115,44 +131,49 @@
 				</Container>
 			{/snippet}
 		</Button>
+		
+		<!-- Spacebar hotkey for spin -->
+		<OnHotkey hotkey="Space" disabled={isSpinning} onpress={handleSpin} />
 	</Container>
 
-	<!-- Autoplay Label (Below Spin Button) -->
-	<Container x={0} y={spinButtonRadius + autoplayHeight}>
-		<Button
-			sizes={{ width: 120, height: autoplayHeight }}
-			onpress={handleAutoplayClick}
-			anchor={0.5}
-		>
-			{#snippet children({ center, hovered, pressed })}
-				<Container {...center}>
-					<!-- Autoplay Background - highlighted when modal open or autoplay active -->
-					<Rectangle
-						width={120}
-						height={autoplayHeight}
-						backgroundColor={showAutoplayModal || isAutoplayActive ? 0x00ff88 : 0x00000000}
-						borderColor={hovered || showAutoplayModal || isAutoplayActive ? 0x00ff88 : 0xffffff}
-						borderWidth={1}
-						borderRadius={autoplayHeight / 2}
-						anchor={0.5}
-						alpha={0.9}
-					/>
+	<!-- Autoplay Label (Below Spin Button) - Hidden during bonus games only -->
+	{#if !isBonusGame}
+		<Container x={0} y={spinButtonRadius + autoplayHeight}>
+			<Button
+				sizes={{ width: 120, height: autoplayHeight }}
+				onpress={handleAutoplayClick}
+				anchor={0.5}
+			>
+				{#snippet children({ center, hovered, pressed })}
+					<Container {...center}>
+						<!-- Autoplay Background - highlighted when modal open or autoplay active -->
+						<Rectangle
+							width={120}
+							height={autoplayHeight}
+							backgroundColor={showAutoplayModal || isAutoplayActive ? 0x00ff88 : 0x00000000}
+							borderColor={hovered || showAutoplayModal || isAutoplayActive ? 0x00ff88 : 0xffffff}
+							borderWidth={1}
+							borderRadius={autoplayHeight / 2}
+							anchor={0.5}
+							alpha={0.9}
+						/>
 
-					<!-- Autoplay Text -->
-					<Text
-						text="AUTOPLAY"
-						style={{
-							fontSize: 12,
-							fill: showAutoplayModal || isAutoplayActive ? 0x000000 : 0xffffff,
-							fontWeight: 'bold',
-							letterSpacing: 1
-						}}
-						anchor={0.5}
-					/>
-				</Container>
-			{/snippet}
-		</Button>
-	</Container>
+						<!-- Autoplay Text -->
+						<Text
+							text="AUTOPLAY"
+							style={{
+								fontSize: 12,
+								fill: showAutoplayModal || isAutoplayActive ? 0x000000 : 0xffffff,
+								fontWeight: 'bold',
+								letterSpacing: 1
+							}}
+							anchor={0.5}
+						/>
+					</Container>
+				{/snippet}
+			</Button>
+		</Container>
+	{/if}
 
 	<!-- Autoplay Spins Counter (Above Spin Button) -->
 	{#if isAutoplayActive}
@@ -183,59 +204,62 @@
 		</Container>
 	{/if}
 
-	<!-- Minus Button (Left) -->
-	<Container x={-spinButtonRadius - betButtonRadius - 20} y={0}>
-		<Button
-			sizes={{ width: betButtonRadius * 2, height: betButtonRadius * 2 }}
-			onpress={handleBetDecrease}
-			disabled={!context.stateXstateDerived.isIdle() || stateBet.betAmount === stateConfig.betAmountOptions[0]}
-			anchor={0.5}
-		>
-			{#snippet children({ center, hovered, pressed })}
-				<Container {...center}>
-					<!-- Minus Button Background -->
-					<Rectangle
-						width={betButtonRadius * 2}
-						height={betButtonRadius * 2}
-						backgroundColor={0x00000000}
-						borderColor={hovered ? 0x00ff88 : 0xffffff}
-						borderWidth={2}
-						borderRadius={betButtonRadius}
-						anchor={0.5}
-						alpha={0.9}
-					/>
+	<!-- Minus Button (Left) - Hidden during bonus games only -->
+	{#if !isBonusGame}
+		<Container x={-spinButtonRadius - betButtonRadius - 20} y={0}>
+			<Button
+				sizes={{ width: betButtonRadius * 2, height: betButtonRadius * 2 }}
+				onpress={handleBetDecrease}
+				disabled={!context.stateXstateDerived.isIdle() || stateBet.betAmount === stateConfig.betAmountOptions[0]}
+				anchor={0.5}
+			>
+				{#snippet children({ center, hovered, pressed })}
+					<Container {...center}>
+						<!-- Minus Button Background -->
+						<Rectangle
+							width={betButtonRadius * 2}
+							height={betButtonRadius * 2}
+							backgroundColor={0x00000000}
+							borderColor={hovered ? 0x00ff88 : 0xffffff}
+							borderWidth={2}
+							borderRadius={betButtonRadius}
+							anchor={0.5}
+							alpha={0.9}
+						/>
 
-					<!-- Minus Icon -->
-					<Text
-						text="-"
-						style={{
-							fontSize: 24,
-							fill: 0xffffff,
-							fontWeight: 'bold'
-						}}
-						anchor={0.5}
-					/>
-				</Container>
-			{/snippet}
-		</Button>
-	</Container>
+						<!-- Minus Icon -->
+						<Text
+							text="-"
+							style={{
+								fontSize: 24,
+								fill: 0xffffff,
+								fontWeight: 'bold'
+							}}
+							anchor={0.5}
+						/>
+					</Container>
+				{/snippet}
+			</Button>
+		</Container>
+	{/if}
 
-	<!-- Plus Button (Right) -->
-	<Container x={spinButtonRadius + betButtonRadius + 20} y={0}>
-		<Button
-			sizes={{ width: betButtonRadius * 2, height: betButtonRadius * 2 }}
-			onpress={handleBetIncrease}
-			disabled={!context.stateXstateDerived.isIdle() || stateBet.betAmount === stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1]}
-			anchor={0.5}
-		>
-			{#snippet children({ center, hovered, pressed })}
-				<Container {...center}>
-					<!-- Plus Button Background -->
-					<Rectangle
-						width={betButtonRadius * 2}
-						height={betButtonRadius * 2}
-						backgroundColor={0x00000000}
-						borderColor={hovered ? 0x00ff88 : 0xffffff}
+	<!-- Plus Button (Right) - Hidden during bonus games only -->
+	{#if !isBonusGame}
+		<Container x={spinButtonRadius + betButtonRadius + 20} y={0}>
+			<Button
+				sizes={{ width: betButtonRadius * 2, height: betButtonRadius * 2 }}
+				onpress={handleBetIncrease}
+				disabled={!context.stateXstateDerived.isIdle() || stateBet.betAmount === stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1]}
+				anchor={0.5}
+			>
+				{#snippet children({ center, hovered, pressed })}
+					<Container {...center}>
+						<!-- Plus Button Background -->
+						<Rectangle
+							width={betButtonRadius * 2}
+							height={betButtonRadius * 2}
+							backgroundColor={0x00000000}
+							borderColor={hovered ? 0x00ff88 : 0xffffff}
 						borderWidth={2}
 						borderRadius={betButtonRadius}
 						anchor={0.5}
@@ -256,6 +280,7 @@
 			{/snippet}
 		</Button>
 	</Container>
+	{/if}
 
 	<!-- Turbo Toggle Button (Top-right of spin button) -->
 	<Container x={spinButtonRadius - 15} y={-spinButtonRadius + 15}>

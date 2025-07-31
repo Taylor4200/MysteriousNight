@@ -65,9 +65,9 @@
 			/>
 
 			<!-- Auto spin counter overlay -->
-			<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
-				<ButtonBetAutoSpinsCounter />
-			</Container>
+	<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
+		<ButtonBetAutoSpinsCounter />
+	</Container>
 		</Container>
 	{/snippet}
 </Button>

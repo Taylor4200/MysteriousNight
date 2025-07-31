@@ -7,6 +7,7 @@ import type { EmitterEventWin } from '../components/Win.svelte';
 import type { EmitterEventSound } from '../components/Sound.svelte';
 import type { EmitterEventTransition } from '../components/Transition.svelte';
 import type { EmitterEventLineWinAmounts } from '../components/LineWinAmounts.svelte';
+import type { EmitterEventBonusGameChests } from '../components/BonusGameChests.svelte';
 
 export type EmitterEventGame =
 	| EmitterEventBoard
@@ -17,4 +18,5 @@ export type EmitterEventGame =
 	| EmitterEventFreeSpinOutro
 	| EmitterEventSound
 	| EmitterEventTransition
-	| EmitterEventLineWinAmounts;
+	| EmitterEventLineWinAmounts
+	| EmitterEventBonusGameChests;

@@ -22,6 +22,7 @@ import {
 
 const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 	if (rawSymbol.name === 'S') {
+		console.log(`🔊 [SYMBOL DEBUG] Scatter symbol landed - counter: ${stateGame.scatterCounter + 1}, playing scatter sound: ${SCATTER_LAND_SOUND_MAP[scatterLandIndex()]}`);
 		eventEmitter.broadcast({ type: 'soundScatterCounterIncrease' });
 		eventEmitter.broadcast({
 			type: 'soundOnce',
@@ -30,6 +31,7 @@ const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 	}
 
 	if (rawSymbol.name === 'W') {
+		console.log(`🔊 [SYMBOL DEBUG] Wild symbol landed - playing Wild_Drop`);
 		eventEmitter.broadcast({
 			type: 'soundOnce',
 			name: 'Wild_Drop',
@@ -45,6 +47,7 @@ const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
 		initialSymbolState: INITIAL_SYMBOL_STATE,
 		onReelStopping: () => {
 			// Trigger sound when reel starts stopping (earlier in animation)
+			console.log(`🔊 [REEL DEBUG] Reel ${reelIndex} stopping - playing Reel1 sound${stateBet.isTurbo ? ' (turbo mode - forcePlay: false)' : ' (normal mode - forcePlay: true)'}`);
 			eventEmitter.broadcast({
 				type: 'soundOnce',
 				name: 'Reel1',

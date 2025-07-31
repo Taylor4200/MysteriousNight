@@ -85,7 +85,7 @@
 				backgroundColor={0xffffff}
 				alpha={0.4}
 				borderRadius={14}
-			/>
+		/>
 		{/if}
 
 		<Text

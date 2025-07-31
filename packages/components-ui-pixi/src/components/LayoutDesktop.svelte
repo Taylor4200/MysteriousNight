@@ -11,6 +11,9 @@
 
 	const props: LayoutUiProps = $props();
 	const context = getContext();
+	
+	// State for conditional UI hiding during bonus games only
+	const isBonusGame = $derived(stateUi.freeSpinCounterShow);
 </script>
 
 <Container x={20}>
@@ -58,7 +61,7 @@
 			alpha={0}
 		/>
 
-		<!-- Left section: Menu Button -->
+		<!-- Left section: Menu Button (always visible) -->
 		<Container y={DESKTOP_BASE_SIZE * 0.5} x={220} scale={0.8}>
 			{@render props.buttonMenu({ anchor: 0.5 })}
 		</Container>
@@ -73,10 +76,12 @@
 			{@render props.amountBet({ stacked: true })}
 		</Container>
 
-		<!-- Buy Bonus Button (high-contrast rectangular) -->
-		<Container y={DESKTOP_BASE_SIZE * 0.5 - 460} x={1460} scale={0.9}>
-			{@render props.buttonBuyBonus({ anchor: 0.5 })}
+		<!-- Buy Bonus Button (hidden during bonus games only) -->
+		{#if !isBonusGame}
+			<Container y={DESKTOP_BASE_SIZE * 0.5 - 460} x={1460} scale={0.9}>
+				{@render props.buttonBuyBonus({ anchor: 0.5 })}
 		</Container>
+		{/if}
 
 		<!-- Unified Spin Panel (Center) -->
 		<Container y={DESKTOP_BASE_SIZE * 0.5} x={1600} scale={1.0}>
@@ -87,7 +92,7 @@
 		{#if stateBet.winBookEventAmount > 0}
 			<Container y={DESKTOP_BASE_SIZE * 0.5 - 50} x={890} scale={1}>
 				{@render props.amountWin({ stacked: true })}
-			</Container>
+		</Container>
 		{/if}
 	</Container>
 </MainContainer>

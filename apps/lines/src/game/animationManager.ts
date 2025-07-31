@@ -1,4 +1,5 @@
-import { Texture, Assets, Spritesheet } from 'pixi.js';
+import * as PIXI from 'pixi.js';
+import type { Assets } from 'pixi.js';
 
 /**
  * Animation configurations for different symbol types
@@ -78,13 +79,21 @@ export const ANIMATION_CONFIGS = {
 		jsonSrc: '/assets/animations/bats/Bats.json',
 		animationSpeed: 0.2,
 		loop: true
+	},
+	// Chest animation for bonus game
+	chest_opening: {
+		type: 'spritesheet' as const,
+		src: '/assets/animations/chest_opening/chest_opening.png',
+		jsonSrc: '/assets/animations/chest_opening/chest_opening.json',
+		animationSpeed: 0.1,
+		loop: false
 	}
 } as const;
 
 /**
  * Cache for loaded animation textures to avoid reloading
  */
-const animationCache = new Map<string, Texture[]>();
+const animationCache = new Map<string, PIXI.Texture[]>();
 
 /**
  * Loads spritesheet animation textures
@@ -98,7 +107,7 @@ async function loadSpritesheetAnimation(config: typeof ANIMATION_CONFIGS[keyof t
 	
 	try {
 		// Load spritesheet using the JSON file - this should load both texture and data
-		const spritesheet = await Assets.load(config.jsonSrc);
+		const spritesheet = await PIXI.Assets.load(config.jsonSrc);
 		
 		// Check if this is already a parsed spritesheet
 		if (spritesheet.animations) {
@@ -131,14 +140,14 @@ async function loadSpritesheetAnimation(config: typeof ANIMATION_CONFIGS[keyof t
 		
 		// Fallback to the original method if the simplified approach fails
 		try {
-			const spritesheetData = await Assets.load(config.jsonSrc);
-			const texture = await Assets.load(config.src);
+			const spritesheetData = await PIXI.Assets.load(config.jsonSrc);
+			const texture = await PIXI.Assets.load(config.src);
 			
 			if (!texture || !spritesheetData) {
 				throw new Error(`Failed to load texture or data from ${config.src}`);
 			}
 			
-			const spritesheet = new Spritesheet(texture, spritesheetData);
+			const spritesheet = new PIXI.Spritesheet(texture, spritesheetData);
 			await spritesheet.parse();
 			
 			const animationNames = Object.keys(spritesheet.animations);
@@ -163,7 +172,7 @@ async function loadSpritesheetAnimation(config: typeof ANIMATION_CONFIGS[keyof t
  * @param animationType - Key from ANIMATION_CONFIGS
  * @returns Promise that resolves to array of textures
  */
-export async function getAnimationTextures(animationType: keyof typeof ANIMATION_CONFIGS): Promise<Texture[]> {
+export async function getAnimationTextures(animationType: keyof typeof ANIMATION_CONFIGS): Promise<PIXI.Texture[]> {
 	if (animationCache.has(animationType)) {
 		return animationCache.get(animationType)!;
 	}

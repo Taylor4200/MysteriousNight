@@ -147,6 +147,23 @@ export default {
 		type: 'sprite',
 		src: '/assets/main_game/spin_down.png',
 	},
+	// Bonus game assets
+	bonusGameBackground: {
+		type: 'sprite',
+		src: new URL('../../assets/png/bonus_game/bonus_game_back.png', import.meta.url).href,
+	},
+	chestClosed: {
+		type: 'sprite',
+		src: new URL('../../assets/animations/chest_opening/chest_01.png', import.meta.url).href,
+	},
+	chestOpened: {
+		type: 'sprite',
+		src: new URL('../../assets/animations/chest_opening/chest_23.png', import.meta.url).href,
+	},
+	chestOpening: {
+		type: 'spriteSheet',
+		src: new URL('../../assets/animations/chest_opening/chest_opening.json', import.meta.url).href,
+	},
 	// Keep existing non-symbol assets for now
 	M: {
 		type: 'spine',

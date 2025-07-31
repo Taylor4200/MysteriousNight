@@ -13,16 +13,16 @@
 	},
 	"type": "module",
 	"devDependencies": {
-		"eslint": "9.21.0",
-		"eslint-config-custom": "workspace:*",
-		"config-ts": "workspace:*",
-		"config-vite": "workspace:*",
-		"config-svelte": "workspace:*",
+		"@storybook/addon-svelte-csf": "5.0.7",
+		"@sveltejs/vite-plugin-svelte": "5.0.3",
+		"chromatic": "11.26.1",
 		"config-lingui": "workspace:*",
 		"config-storybook": "workspace:*",
-		"chromatic": "11.26.1",
-		"@storybook/addon-svelte-csf": "5.0.7",
-		"@sveltejs/vite-plugin-svelte": "5.0.3"
+		"config-svelte": "workspace:*",
+		"config-ts": "workspace:*",
+		"config-vite": "workspace:*",
+		"eslint": "9.21.0",
+		"eslint-config-custom": "workspace:*"
 	},
 	"dependencies": {
 		"@lingui/core": "5.2.0",
@@ -38,6 +38,7 @@
 		"envs": "workspace:*",
 		"lodash": "4.17.16",
 		"pixi-svelte": "workspace:*",
+		"pixi.js": "8.8.1",
 		"rgs-requests": "workspace:*",
 		"state-shared": "workspace:*",
 		"svelte": "5.20.5",

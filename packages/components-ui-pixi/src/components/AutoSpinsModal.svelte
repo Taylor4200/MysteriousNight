@@ -100,7 +100,10 @@
 			<Container x={(index % 3 - 1) * 110} y={Math.floor(index / 3) * 50}>
 				<Button
 					sizes={{ width: 90, height: 40 }}
-					onpress={() => handleSpinSelection(option)}
+					onpress={() => {
+						context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
+						handleSpinSelection(option);
+					}}
 					anchor={0.5}
 				>
 					{#snippet children({ center, hovered, pressed })}

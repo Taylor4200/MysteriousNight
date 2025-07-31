@@ -13,24 +13,32 @@ import type { Position } from './types';
 import config from './config';
 
 const winLevelSoundsPlay = ({ winLevelData }: { winLevelData: WinLevelData }) => {
+	console.log(`🔊 [WIN DEBUG] winLevelSoundsPlay - Playing sounds for win level: ${winLevelData.type} (alias: ${winLevelData.alias})`);
+	
 	if (winLevelData?.alias === 'max') eventEmitter.broadcastAsync({ type: 'uiHide' });
 	if (winLevelData?.sound?.sfx) {
+		console.log(`🔊 [WIN DEBUG] Playing SFX: ${winLevelData.sound.sfx}`);
 		eventEmitter.broadcast({ type: 'soundOnce', name: winLevelData.sound.sfx });
 	}
 	if (winLevelData?.sound?.bgm) {
+		console.log(`🔊 [WIN DEBUG] Playing BGM: ${winLevelData.sound.bgm}`);
 		eventEmitter.broadcast({ type: 'soundMusic', name: winLevelData.sound.bgm });
 	}
 	if (winLevelData?.type === 'big') {
+		console.log(`🔊 [WIN DEBUG] Playing CoinLoopBigWins (big win loop)`);
 		eventEmitter.broadcast({ type: 'soundLoop', name: 'CoinLoopBigWins' });
 	}
 };
 
 const winLevelSoundsStop = () => {
+	console.log(`🔊 [WIN DEBUG] winLevelSoundsStop - Stopping win sounds and resuming background music`);
 	eventEmitter.broadcast({ type: 'soundStop', name: 'CoinLoopBigWins' });
 	if (stateBet.activeBetModeKey === 'SUPERSPIN' || stateGame.gameType === 'freegame') {
 		// check if SUPERSPIN, when finishing a bet.
+		console.log(`🔊 [WIN DEBUG] Resuming Freespin_music (SUPERSPIN/freegame mode)`);
 		eventEmitter.broadcast({ type: 'soundMusic', name: 'Freespin_music' });
 	} else {
+		console.log(`🔊 [WIN DEBUG] Resuming Basegame_music (normal mode)`);
 		eventEmitter.broadcast({ type: 'soundMusic', name: 'Basegame_music' });
 	}
 	eventEmitter.broadcastAsync({ type: 'uiShow' });
@@ -106,22 +114,29 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		console.log('[Lines Game] setTotalWin handler completed');
 	},
 	freeSpinTrigger: async (bookEvent: BookEventOfType<'freeSpinTrigger'>) => {
+		console.log(`🔊 [BONUS DEBUG] freeSpinTrigger - Starting bonus game with ${bookEvent.totalFs} free spins`);
+		
 		// animate scatters
+		console.log(`🔊 [BONUS DEBUG] Playing ScatterWinV2 (scatter win sound)`);
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'ScatterWinV2' });
 		await animateSymbols({ positions: bookEvent.positions });
-		// show free spin intro
+		
+		// show bonus game chests
+		console.log(`🔊 [BONUS DEBUG] Playing FsRespin (free spin respin sound)`);
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'FsRespin' });
 		await eventEmitter.broadcastAsync({ type: 'uiHide' });
 		await eventEmitter.broadcastAsync({ type: 'transition' });
-		eventEmitter.broadcast({ type: 'freeSpinIntroShow' });
-		eventEmitter.broadcast({ type: 'soundOnce', name: 'AnticipationStart' });
+		eventEmitter.broadcast({ type: 'bonusGameChestsShow' });
+		
+		console.log(`🔊 [BONUS DEBUG] Playing Freespin_music (bonus game music)`);
 		eventEmitter.broadcast({ type: 'soundMusic', name: 'Freespin_music' });
+		
 		await eventEmitter.broadcastAsync({
-			type: 'freeSpinIntroUpdate',
+			type: 'bonusGameChestsUpdate',
 			totalFreeSpins: bookEvent.totalFs,
 		});
 		stateGame.gameType = 'freegame';
-		eventEmitter.broadcast({ type: 'freeSpinIntroHide' });
+		eventEmitter.broadcast({ type: 'bonusGameChestsHide' });
 		eventEmitter.broadcast({ type: 'boardFrameGlowShow' });
 		eventEmitter.broadcast({ type: 'freeSpinCounterShow' });
 		stateUi.freeSpinCounterShow = true;
@@ -134,6 +149,8 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		await eventEmitter.broadcastAsync({ type: 'uiShow' });
 		await eventEmitter.broadcastAsync({ type: 'drawerButtonShow' });
 		eventEmitter.broadcast({ type: 'drawerFold' });
+		
+		console.log(`🔊 [BONUS DEBUG] freeSpinTrigger - Bonus game setup completed`);
 	},
 	updateFreeSpin: async (bookEvent: BookEventOfType<'updateFreeSpin'>) => {
 		eventEmitter.broadcast({ type: 'freeSpinCounterShow' });

@@ -64,7 +64,7 @@
 							backgroundColor={0x00ff88}
 							alpha={0.15}
 							borderRadius={(sizes.width + 12) / 2}
-						/>
+					/>
 					{/if}
 
 					<Text
