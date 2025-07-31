@@ -11,17 +11,17 @@ export default {
 	// Loading screen assets
 	loadingLogo: {
 		type: 'sprite',
-		src: '/assets/logo.png',
+		src: new URL('../../assets/logo.png', import.meta.url).href,
 		preload: true,
 	},
 	loadingBackground: {
 		type: 'sprite',
-		src: '/assets/loading_back.png',
+		src: new URL('../../assets/loading_back.png', import.meta.url).href,
 		preload: true,
 	},
 	loadingSpinner: {
 		type: 'sprite',
-		src: '/assets/splash_screen/loading.png',
+		src: new URL('../../assets/splash_screen/loading.png', import.meta.url).href,
 		preload: true,
 	},
 	pressToContinueText: {
@@ -32,121 +32,120 @@ export default {
 	// Animation spritesheets
 	ambient_bats: {
 		type: 'spriteSheet',
-		src: '/assets/animations/bats/Bats.json',
+		src: new URL('../../src/assets/animations/bats/Bats.json', import.meta.url).href,
 	},
 	// Symbol win animations
 	wild_hit: {
 		type: 'spriteSheet',
-		src: '/assets/animations/wolf_icon/wolf_icon.json',
+		src: new URL('../../src/assets/animations/wolf_icon/wolf_icon.json', import.meta.url).href,
 	},
 	queen_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/queen/queen.json',
+		src: new URL('../../src/assets/animations/queen/queen.json', import.meta.url).href,
 	},
 	king_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/king/king.json',
+		src: new URL('../../src/assets/animations/king/king.json', import.meta.url).href,
 	},
 	A_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/A/A.json',
+		src: new URL('../../src/assets/animations/A/A.json', import.meta.url).href,
 	},
 	J_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/J/J.json',
+		src: new URL('../../src/assets/animations/J/J.json', import.meta.url).href,
 	},
 	K_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/K/K.json',
+		src: new URL('../../src/assets/animations/K/K.json', import.meta.url).href,
 	},
 	Q_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/Q/q.json', // Fixed: lowercase filename
+		src: new URL('../../src/assets/animations/Q/q.json', import.meta.url).href,
 	},
 	// Special effect animations
 	bonus_tease: {
 		type: 'spriteSheet',
-		src: '/assets/animations/bats/Bats.json',
+		src: new URL('../../src/assets/animations/bats/Bats.json', import.meta.url).href,
 	},
 	big_win: {
 		type: 'spriteSheet',
-		src: '/assets/animations/flies/flies.json',
+		src: new URL('../../src/assets/animations/flies/flies.json', import.meta.url).href,
 	},
 	// New PNG-based symbol assets
 	H1: {
 		type: 'sprite',
-		src: '/assets/icons/wolf_icon.png',
+		src: new URL('../../assets/icons/wolf_icon.png', import.meta.url).href,
 	},
 	H2: {
 		type: 'sprite',
-		src: '/assets/icons/king.png',
+		src: new URL('../../assets/icons/king.png', import.meta.url).href,
 	},
 	H3: {
 		type: 'sprite',
-		src: '/assets/icons/queen.png',
+		src: new URL('../../assets/icons/queen.png', import.meta.url).href,
 	},
 	H4: {
 		type: 'sprite',
-		src: '/assets/icons/A.png', // Fixed: Use existing A.png instead of non-existent 10.png
+		src: new URL('../../assets/icons/A.png', import.meta.url).href,
 	},
 	L1: {
 		type: 'sprite',
-		src: '/assets/icons/J.png',
+		src: new URL('../../assets/icons/J.png', import.meta.url).href,
 	},
 	L2: {
 		type: 'sprite',
-		src: '/assets/icons/A.png',
+		src: new URL('../../assets/icons/A.png', import.meta.url).href,
 	},
 	L3: {
 		type: 'sprite',
-		src: '/assets/icons/K.png',
+		src: new URL('../../assets/icons/K.png', import.meta.url).href,
 	},
 	L4: {
 		type: 'sprite',
-		src: '/assets/icons/Q.png',
+		src: new URL('../../assets/icons/Q.png', import.meta.url).href,
 	},
 	W: {
 		type: 'sprite',
-		src: '/assets/icons/wild.png',
+		src: new URL('../../assets/icons/wild.png', import.meta.url).href,
 	},
 	S: {
 		type: 'sprite',
-		src: '/assets/icons/bonus_symbol.png', // Updated: Now uses your bonus symbol
+		src: new URL('../../assets/icons/bonus_symbol.png', import.meta.url).href,
 	},
-	// Special effect assets
 	// Background and UI assets
 	background: {
 		type: 'sprite',
-		src: '/assets/main_game/back.png',
+		src: new URL('../../assets/main_game/back.png', import.meta.url).href,
 		preload: true,
 	},
 	logo: {
 		type: 'sprite',
-		src: '/assets/main_game/logo.png',
+		src: new URL('../../assets/main_game/logo.png', import.meta.url).href,
 	},
 	frameBack: {
 		type: 'sprite',
-		src: '/assets/main_game/frame_back.png',
+		src: new URL('../../assets/main_game/frame_back.png', import.meta.url).href,
 	},
 	mainFrame: {
 		type: 'sprite',
-		src: '/assets/main_game/frame.png',
+		src: new URL('../../assets/main_game/frame.png', import.meta.url).href,
 	},
 	fog: {
 		type: 'sprite',
-		src: '/assets/main_game/fog.png',
+		src: new URL('../../assets/main_game/fog.png', import.meta.url).href,
 	},
 	spikes: {
 		type: 'sprite',
-		src: '/assets/main_game/spikes.png',
+		src: new URL('../../assets/main_game/spikes.png', import.meta.url).href,
 	},
 	spinButton: {
 		type: 'sprite',
-		src: '/assets/main_game/spin_up.png',
+		src: new URL('../../assets/main_game/spin_up.png', import.meta.url).href,
 	},
 	spinButtonDown: {
 		type: 'sprite',
-		src: '/assets/main_game/spin_down.png',
+		src: new URL('../../assets/main_game/spin_down.png', import.meta.url).href,
 	},
 	// Bonus game assets
 	bonusGameBackground: {
@@ -346,8 +345,8 @@ export default {
 	scatterBonusAnimation: {
 		type: 'spine',
 		src: {
-			atlas: '/assets/spines/bonusSymbol/bonusSymbol.atlas',
-			skeleton: '/assets/spines/bonusSymbol/bonusSymbol.json',
+			atlas: new URL('../../assets/spines/bonusSymbol/bonusSymbol.atlas', import.meta.url).href,
+			skeleton: new URL('../../assets/spines/bonusSymbol/bonusSymbol.json', import.meta.url).href,
 			scale: 1,
 		},
 		preload: true,
