@@ -178,8 +178,9 @@ const l2Static = { type: 'sprite', assetKey: 'L2', sizeRatios: { width: 1, heigh
 const l3Static = { type: 'sprite', assetKey: 'L3', sizeRatios: { width: 1, height: 1 } };
 const l4Static = { type: 'sprite', assetKey: 'L4', sizeRatios: { width: 1, height: 1 } };
 
-const sStatic = { type: 'sprite', assetKey: 'S', sizeRatios: { width: 1.243, height: 1.243 } };
+const sStatic = { type: 'sprite', assetKey: 'S', sizeRatios: { width: 1.2, height: 1.2 } };
 const wStatic = { type: 'sprite', assetKey: 'W', sizeRatios: { width: 1.12, height: 1.12 } };
+
 
 const wSizeRatios = { width: 1.5 * 0.9, height: SPECIAL_SYMBOL_SIZE * 1.15 };
 const sSizeRatios = { width: 2.5, height: SPECIAL_SYMBOL_SIZE * 2.3 };
@@ -295,9 +296,15 @@ export const SYMBOL_INFO_MAP = {
 		postWinStatic: sStatic,
 		static: sStatic,
 		spin: sStatic,
-		win: { type: 'sprite', assetKey: 'S', sizeRatios: { width: 1, height: 1 } },
-		land: sStatic, // Fixed: Use static sprite for smooth reel mechanics
+		win: {
+			type: 'spine',
+			assetKey: 'scatterBonusAnimation',
+			animationName: 'animation',
+			sizeRatios: { width: 1.2, height: 1.2 },
+		},
+		land: sStatic,
 	},
+
 } as const;
 
 export const SCATTER_LAND_SOUND_MAP = {

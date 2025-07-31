@@ -84,7 +84,18 @@ export default {
 			],
 		},
 		S: {
-			special_properties: ['scatter'],
+			special_properties: ['scatter', 'bonus'],
+			paytable: [
+				{
+					'5': 50,
+				},
+				{
+					'4': 20,
+				},
+				{
+					'3': 10,
+				},
+			],
 		},
 		H2: {
 			paytable: [

@@ -111,7 +111,7 @@ export default {
 	},
 	S: {
 		type: 'sprite',
-		src: '/assets/icons/wolf_icon.png', // Fixed: Use existing wolf_icon.png instead of non-existent scatter.png
+		src: '/assets/icons/bonus_symbol.png', // Updated: Now uses your bonus symbol
 	},
 	// Special effect assets
 	// Background and UI assets
@@ -340,6 +340,16 @@ export default {
 	sound: {
 		type: 'audio',
 		src: new URL('../../assets/audio/sounds.json', import.meta.url).href,
+		preload: true,
+	},
+	// Scatter/bonus symbol animation
+	scatterBonusAnimation: {
+		type: 'spine',
+		src: {
+			atlas: '/assets/spines/bonusSymbol/bonusSymbol.atlas',
+			skeleton: '/assets/spines/bonusSymbol/bonusSymbol.json',
+			scale: 1,
+		},
 		preload: true,
 	},
 } as const;
