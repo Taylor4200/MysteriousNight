@@ -32,45 +32,45 @@ export default {
 	// Animation spritesheets
 	ambient_bats: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/bats/Bats.json', import.meta.url).href,
+		src: new URL('../../assets/animations/bats/Bats.json', import.meta.url).href,
 	},
 	// Symbol win animations
 	wild_hit: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/wolf_icon/wolf_icon.json', import.meta.url).href,
+		src: new URL('../../assets/animations/wolf_icon/wolf_icon.json', import.meta.url).href,
 	},
 	queen_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/queen/queen.json', import.meta.url).href,
+		src: new URL('../../assets/animations/queen/queen.json', import.meta.url).href,
 	},
 	king_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/king/king.json', import.meta.url).href,
+		src: new URL('../../assets/animations/king/king.json', import.meta.url).href,
 	},
 	A_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/A/A.json', import.meta.url).href,
+		src: new URL('../../assets/animations/A/A.json', import.meta.url).href,
 	},
 	J_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/J/J.json', import.meta.url).href,
+		src: new URL('../../assets/animations/J/J.json', import.meta.url).href,
 	},
 	K_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/K/K.json', import.meta.url).href,
+		src: new URL('../../assets/animations/K/K.json', import.meta.url).href,
 	},
 	Q_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/Q/q.json', import.meta.url).href,
+		src: new URL('../../assets/animations/Q/q.json', import.meta.url).href,
 	},
 	// Special effect animations
 	bonus_tease: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/bats/Bats.json', import.meta.url).href,
+		src: new URL('../../assets/animations/bats/Bats.json', import.meta.url).href,
 	},
 	big_win: {
 		type: 'spriteSheet',
-		src: new URL('../../src/assets/animations/flies/flies.json', import.meta.url).href,
+		src: new URL('../../assets/animations/flies/flies.json', import.meta.url).href,
 	},
 	// New PNG-based symbol assets
 	H1: {
