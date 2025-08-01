@@ -3,6 +3,7 @@
 	import { cubicInOut } from 'svelte/easing';
 
 	import { stateUi } from 'state-shared';
+	import { stateBet } from 'state-shared';
 	import { BLACK } from 'constants-shared/colors';
 	import { FadeContainer } from 'components-pixi';
 	import { MainContainer } from 'components-layout';
@@ -114,12 +115,14 @@
 
 	<!-- WIN DISPLAY - Moves with drawer -->
 	<Container y={Math.min(drawerTween.current, 200)}>
-		<Container
-			x={context.stateLayoutDerived.mainLayoutStandard().width * 0.507}
-			y={context.stateLayoutDerived.mainLayoutStandard().height - 600}
-		>
-			{@render props.amountWin({ stacked: true })}
-		</Container>
+		{#if stateBet.winBookEventAmount > 0}
+			<Container
+				x={context.stateLayoutDerived.mainLayoutStandard().width * 0.507}
+				y={context.stateLayoutDerived.mainLayoutStandard().height - 600}
+			>
+				{@render props.amountWin({ stacked: true })}
+			</Container>
+		{/if}
 	</Container>
 </MainContainer>
 

@@ -17,8 +17,25 @@
 	const FOG_OFFSET_Y = 180;           // Fog Y position offset
 	const SPIKES_OFFSET_X = 5;        // Spikes X position offset  
 	const SPIKES_OFFSET_Y = 250;      // Spikes Y position offset
-	const LOGO_OFFSET_X = 0;          // Logo X position offset
-	const LOGO_OFFSET_Y = 130;        // Logo Y position offset
+	
+	// Responsive logo positioning
+	const logoPosition = $derived(() => {
+		const layoutType = context.stateLayoutDerived.layoutType();
+		
+		if (layoutType === 'portrait') {
+			// Portrait mobile positioning - custom position
+			return {
+				x: context.stateGameDerived.boardLayout().x + -5,  // Adjustable X offset
+				y: 310,  // Adjustable Y position from top
+			};
+		} else {
+			// Desktop/landscape positioning - keep original
+			return {
+				x: context.stateGameDerived.boardLayout().x + 0,  // Original LOGO_OFFSET_X was 0
+				y: 130,  // Original LOGO_OFFSET_Y
+			};
+		}
+	});
 	
 	// Match the exact positioning from BoardFrame.svelte
 	const POSITION_ADJUSTMENT_X = 1.01; // Same as main frame
@@ -33,8 +50,8 @@
 	key="logo"
 	anchor={0.5}
 	zIndex={100}
-	x={context.stateGameDerived.boardLayout().x + LOGO_OFFSET_X}
-	y={LOGO_OFFSET_Y}
+	x={logoPosition().x}
+	y={logoPosition().y}
 	width={200 * LOGO_SCALE}
 	height={100 * LOGO_SCALE}
 	alpha={1}
