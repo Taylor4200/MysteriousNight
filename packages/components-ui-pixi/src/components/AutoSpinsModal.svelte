@@ -38,13 +38,35 @@
 	// Modal dimensions - optimized for modern layout
 	const modalWidth = 360;
 	const modalHeight = 280;
+	
+	// Responsive positioning based on layout type
+	const modalPosition = $derived(() => {
+		const layoutType = context.stateLayoutDerived.layoutType();
+		const canvasSizes = context.stateLayoutDerived.canvasSizes();
+		
+		if (layoutType === 'portrait') {
+			// Portrait mobile positioning - center horizontally, higher vertically
+			return {
+				x: canvasSizes.width * 0.145,
+				y: canvasSizes.height * -0.33,
+				pivot: anchorToPivot({ anchor: { x: 0.5, y: 0.5 }, sizes: { width: modalWidth, height: modalHeight } })
+			};
+		} else {
+			// Desktop/landscape positioning - keep original
+			return {
+				x: canvasSizes.width * 0.5,
+				y: canvasSizes.height * 0.5,
+				pivot: anchorToPivot({ anchor: { x: 2.04, y: 2.3 }, sizes: { width: modalWidth, height: modalHeight } })
+			};
+		}
+	});
 </script>
 
 <!-- Modal container -->
 <Container
-	x={context.stateLayoutDerived.canvasSizes().width * 0.5}
-	y={context.stateLayoutDerived.canvasSizes().height * 0.5}
-	pivot={anchorToPivot({ anchor: { x: 2.04, y: 2.3 }, sizes: { width: modalWidth, height: modalHeight } })}
+	x={modalPosition().x}
+	y={modalPosition().y}
+	pivot={modalPosition().pivot}
 >
 	<!-- Modal background - ultra modern with subtle glow -->
 	<Rectangle

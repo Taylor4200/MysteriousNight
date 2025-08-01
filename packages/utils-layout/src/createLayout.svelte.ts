@@ -50,7 +50,7 @@ export const createLayout = (layoutOptions: {
 	const layoutType = () => {
 		if (canvasRatioType() === 'almostSquare') return 'tablet' as const;
 		if (canvasRatioType() === 'longHeight') return 'portrait' as const;
-		if (canvasSizeType() === 'mobile' || canvasSizeType() === 'smallMobile')
+		if (canvasRatioType() === 'longWidth' && (canvasSizeType() === 'mobile' || canvasSizeType() === 'smallMobile'))
 			return 'landscape' as const;
 		return 'desktop' as const;
 	};

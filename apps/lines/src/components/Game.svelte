@@ -26,7 +26,6 @@
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
 	import BonusGameChests from './BonusGameChests.svelte';
-	import I18nTest from './I18nTest.svelte';
 	import HitAnimations from './HitAnimations.svelte';
 	import AmbientBats from './AmbientBats.svelte';
 	import AtmosphericElements from './AtmosphericElements.svelte';
@@ -105,8 +104,6 @@
 		<FreeSpinOutro />
 		<Transition />
 		<HitAnimations />
-
-		<I18nTest />
 	{/if}
 </App>
 
