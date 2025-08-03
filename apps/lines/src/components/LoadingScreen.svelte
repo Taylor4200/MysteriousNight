@@ -19,6 +19,33 @@
 	// Use dynamic canvas sizing like cluster app
 	const canvasSizes = context.stateLayoutDerived.canvasSizes();
 
+	// Portrait-only adjustments (desktop stays 100% unchanged)
+	const portraitAdjustments = $derived(() => {
+		const layoutType = context.stateLayoutDerived.layoutType();
+		
+		if (layoutType === 'portrait') {
+			// ONLY PORTRAIT - Adjustable values for mobile
+			return {
+				logoScale: 0.2,        // Portrait logo scale (desktop stays 0.32)
+				logoY: -80,             // Portrait logo Y position (desktop stays -100)
+				spinnerScale: 0.5,      // Portrait spinner scale (desktop stays 0.6) 
+				spinnerY: 200,          // Portrait spinner Y position (desktop stays 250)
+				textSize: 20,           // Portrait text size (desktop stays 24)
+				textY: 200,             // Portrait text Y position (desktop stays 250)
+			};
+		} else {
+			// DESKTOP/LANDSCAPE - Use original values (unchanged)
+			return {
+				logoScale: 0.32,        // Original desktop scale
+				logoY: -100,            // Original desktop Y position
+				spinnerScale: 0.6,      // Original desktop scale
+				spinnerY: 250,          // Original desktop Y position
+				textSize: 24,           // Original desktop text size
+				textY: 250,             // Original desktop Y position
+			};
+		}
+	});
+
 	// Animate the loading spinner with flashing effect
 	$effect(() => {
 		if (loadingType === 'start' && !context.stateApp.loaded) {
@@ -72,8 +99,8 @@
 			key="loadingLogo"
 			anchor={0.5}
 			x={0}
-			y={-100}
-			scale={0.32}
+			y={portraitAdjustments().logoY}
+			scale={portraitAdjustments().logoScale}
 		/>
 		
 		<!-- Loading spinner with flashing effect -->
@@ -82,9 +109,9 @@
 				key="loadingSpinner"
 				anchor={0.5}
 				x={0}
-				y={250}
+				y={portraitAdjustments().spinnerY}
 				alpha={loadingAlpha}
-				scale={0.6}
+				scale={portraitAdjustments().spinnerScale}
 			/>
 		{/if}
 
@@ -93,11 +120,11 @@
 			<Text
 				anchor={0.5}
 				x={0}
-				y={250}
+				y={portraitAdjustments().textY}
 				text="Press anywhere to continue"
 				style={{
 					fontFamily: 'Times New Roman',
-					fontSize: 24,
+					fontSize: portraitAdjustments().textSize,
 					fill: 0xffffff,
 					align: 'center'
 				}}

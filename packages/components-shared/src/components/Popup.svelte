@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { blur } from 'svelte/transition';
-	import { onMount, type Snippet } from 'svelte';
+	import { onMount, onDestroy, type Snippet } from 'svelte';
 
 	import { waitForTimeout } from 'utils-shared/wait';
 
@@ -27,9 +27,16 @@
 	let disabled = $state(true);
 
 	onMount(async () => {
+		// Prevent background scrolling
+		document.body.classList.add('modal-open');
+		
 		await waitForTimeout(300);
-
 		disabled = false;
+	});
+
+	onDestroy(() => {
+		// Re-enable background scrolling
+		document.body.classList.remove('modal-open');
 	});
 </script>
 

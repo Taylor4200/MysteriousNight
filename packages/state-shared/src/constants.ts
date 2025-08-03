@@ -25,7 +25,7 @@ const DEFAULT_BET_MODE_META = {
 	},
 	ANTE: {
 		mode: 'ANTE',
-		costMultiplier: 1.2,
+		costMultiplier: 1.25,
 		type: 'activate',
 		parent: '',
 		children: '',
@@ -44,8 +44,8 @@ const DEFAULT_BET_MODE_META = {
 		text: {
 			title: 'DOUBLE BOOST',
 			dialog:
-				'Double the chance to trigger the FREE SPINS round when activated for 1.2x the player bet amount. DOUBLE BOOST remains active until disabled by the player.',
-			description: 'Greatly increase your chance of landing a bonus symbol each spin.',
+				'Activating DOUBLE BOOST doubles your chance of triggering the FREE SPINS feature. Costs 1.25x your base bet. Remains active until manually disabled.',
+			description: 'Bonus symbols have a higher chance of landing on every spin while active. Remains on until manually disabled.',
 			button: 'ACTIVATE',
 			betAmountLabel: 'DOUBLE BOOST',
 			tickerIdle: 'DOUBLE BOOST IS ACTIVE',
@@ -53,64 +53,7 @@ const DEFAULT_BET_MODE_META = {
 			bannerText: 'example banner text',
 		},
 	},
-	SUPERANTE: {
-		mode: 'SUPERANTE',
-		costMultiplier: 5,
-		type: 'activate',
-		parent: '',
-		children: '',
-		assets: {
-			icon: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superboost.webp',
-			dialogImage:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/superboost_image.webp',
-			dialogVolatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_02.webp',
-			volatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_white_02.webp',
-			button:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/button_activate.webp',
-		},
-		text: {
-			title: 'SUPER BOOST',
-			dialog:
-				'1 in 20 chance to trigger the FREE SPINS round when activated for 5x the player bet amount. Guarantees 1 or more Scatter symbols every spin. SUPER BOOST remains active until disabled by the player.',
-			description: 'Guaranteed to land at least 1+ bonus symbol each spin.',
-			button: 'ACTIVATE',
-			betAmountLabel: 'SUPER BOOST',
-			tickerIdle: 'SUPER BOOST IS ACTIVE',
-			tickerSpin: 'GOOD LUCK',
-			bannerText: 'example banner text',
-		},
-	},
-	SUPERSPIN: {
-		mode: 'SUPERSPIN',
-		costMultiplier: 25,
-		type: 'activate',
-		parent: '',
-		children: '',
-		assets: {
-			icon: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superspin.webp',
-			dialogImage:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/superspin_image.webp',
-			dialogVolatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_03.webp',
-			volatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_white_03.webp',
-			button:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/button_activate.webp',
-		},
-		text: {
-			title: 'SAMURAI SPIN',
-			dialog:
-				'All game features are boosted when activated for 25x the player bet amount. SAMURAI SPIN remains active until disabled by the player.',
-			description: 'SAMURAI SPIN is AWESOME! ',
-			button: 'ACTIVATE',
-			betAmountLabel: 'SAMURAI SPIN',
-			tickerIdle: 'SAMURAI SPIN IS ACTIVE',
-			tickerSpin: 'GOOD LUCK',
-			bannerText: 'example banner text',
-		},
-	},
+
 	BONUS: {
 		mode: 'BONUS',
 		costMultiplier: 100,
@@ -129,19 +72,19 @@ const DEFAULT_BET_MODE_META = {
 				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_8_97/betModes/button_buy.webp',
 		},
 		text: {
-			title: 'BONUS',
+			title: 'Shadow Spins',
 			dialog:
-				'Triggers FREE SPINS feature when activated for 100x the player bet amount. The Global Multiplier can reach up to 64x and remains active for the duration of FREE SPINS.',
-			description: 'Each spin may have a random multiplier applied to winning lines.',
+				' Triggers the Shadow Spins feature for 100x your bet. Increased chance for wild symbols to land with multipliers. Chest provides between 6-10 free spins',
+			description: 'FREE SPINS with a higher frequency of wild symbols appearing with random multipliers. 6-10 free spins',
 			button: 'BUY',
 			tickerIdle: 'PLACE YOUR BET',
-			tickerSpin: 'BONUS BUY ACTIVATED',
+			tickerSpin: 'SHADOW SPINS BUY ACTIVATED',
 			bannerText: 'example banner text',
 		},
 	},
 	SUPER: {
 		mode: 'SUPER',
-		costMultiplier: 200,
+		costMultiplier: 500,
 		type: 'buy',
 		parent: '',
 		children: '',
@@ -157,13 +100,13 @@ const DEFAULT_BET_MODE_META = {
 				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_8_97/betModes/button_buy.webp',
 		},
 		text: {
-			title: 'SUPER BONUS',
+			title: 'Blood Eclipse',
 			dialog:
-				'Triggers FREE SPINS feature when activated for 200x the player bet amount. The Global Multiplier can reach up to 256x and remains active for the duration of FREE SPINS.',
-			description: 'Enter the mothership! Land values and multiply them with action symbols.',
+				'Triggers the Blood Eclipse feature for 500x your bet. At least one multiplier wild drops every spin, all with a minimum value of 5x. Chest provides between 8-14 free spins',
+			description: 'FREE SPINS where at least one multiplier wild lands every spin. All wilds are 5x or higher. Increased wild drop rate throughout. 8-14 free spins',
 			button: 'BUY',
 			tickerIdle: 'PLACE YOUR BET',
-			tickerSpin: 'SUPER BONUS BUY ACTIVATED',
+			tickerSpin: 'BLOOD ECLIPSE BUY ACTIVATED',
 			bannerText: 'example banner text',
 		},
 	},
@@ -317,9 +260,70 @@ const DEFAULT_GAME_RULE_META = {
 		{
 			containers: [
 				{
+					title: 'GAME OVERVIEW',
+					text: 'This is a 5-reel, 3-row slot game with 20 fixed paylines. Wins are paid from left to right, starting from the leftmost reel. Only winning combinations on adjacent reels are valid.\n\nThe game features Wild symbols, Scatter symbols, and various bonus features including Free Spins and multiplier wilds.',
+					image: '',
+					imagePosition: 'top',
+					row: 0,
+					column: 0,
+				},
+				{
+					title: 'WILD SYMBOL',
+					text: 'The Wild symbol substitutes for all other symbols except Scatter symbols to create winning combinations. Wild symbols can appear on all reels and may carry random multipliers from 2x to 10x.\n\nWhen a Wild symbol is part of a winning combination, the win is multiplied by the Wild\'s multiplier value.',
+					image: '',
+					imagePosition: 'left',
+					row: 1,
+					column: 0,
+				},
+				{
+					title: 'SCATTER SYMBOL',
+					text: 'Scatter symbols can appear on all reels and trigger the Free Spins feature when 3 or more land anywhere on the reels.\n\n3 Scatters = 8 Free Spins\n4 Scatters = 12 Free Spins\n5 Scatters = 16 Free Spins\n\nDuring Free Spins, Scatter symbols are on all reels and can retrigger additional Free Spins:\n\n3 Scatters = 4 additional Free Spins\n4 Scatters = 6 additional Free Spins\n5 Scatters = 8 additional Free Spins',
+					image: '',
+					imagePosition: 'left',
+					row: 2,
+					column: 0,
+				},
+			],
+			rows: 3,
+			columns: 1,
+			title: 'GAME RULES',
+		},
+		{
+			containers: [
+				{
+					title: 'SHADOW SPINS BONUS',
+					text: 'The Shadow Spins bonus can be purchased for 100x your base bet. This bonus provides 6-10 Shadow Spins with enhanced Wild symbol frequency and random multipliers.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (6-10) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nAll wins during Shadow Spins bonus are multiplied by the total bet.',
+					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_bonusbuy.webp',
+					imagePosition: 'left',
+					row: 0,
+					column: 0,
+				},
+			],
+			rows: 1,
+			columns: 1,
+			title: 'BONUS FEATURES',
+		},
+		{
+			containers: [
+				{
+					title: 'BLOOD ECLIPSE SUPER BONUS',
+					text: 'The Blood Eclipse super bonus can be purchased for 500x your base bet. This bonus provides 8-14 Shadow Spins with guaranteed enhanced Wild symbols.\n\nDuring Blood Eclipse, at least one multiplier Wild symbol drops every spin, all with a minimum value of 5x. The Wild drop rate is significantly increased throughout the feature.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (8-14) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nAll wins during Blood Eclipse are multiplied by the total bet.',
+					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superbonusbuy.webp',
+					imagePosition: 'left',
+					row: 0,
+					column: 0,
+				},
+			],
+			rows: 1,
+			columns: 1,
+			title: 'SUPER BONUS FEATURES',
+		},
+		{
+			containers: [
+				{
 					title: '',
-					text: 'The normal mode of this game has a theoretical expected return of 97.0%.\n\nThe player also has the option to select an ANTE BET mode. This costs 1.25x the underlying bet. The ANTE BET mode has a theoretical expected return of 97.0%. The ANTE BET doubles the chance of FREE SPINS.\n\nThe player also has the option to buy FREE SPINS. This costs 100x the underlying bet. The FREE SPINS buy mode has a theoretical expected return of 97.0%. \n\nThe player has the option to buy a SUPER SPIN. This costs 25x the underlying bet. The SUPER SPIN buy mode has a theoretical expected return of 97.0%. In SUPER SPIN one spin is initially awarded. On each spin stacked Wild Symbols are on Reel Strips\n\n The maximum win in each Bet Mode is 5000x the underlining bet.',
-					image: 'https://staging-1-0.twist-game.app/_app/immutable/assets/rtp97.d2febd7d.svg',
+					text: 'Theoretical Return to Player (RTP):\n\n• Base Game: 96.2%\n• Double Boost Mode: 95.4%\n• Shadow Spins Bonus: 96.0%\n• Blood Eclipse Bonus: 94.5%\n\nMaximum Win: 10,000x base bet',
+					image: '',
 					imagePosition: 'top',
 					row: 0,
 					column: 0,
@@ -327,138 +331,32 @@ const DEFAULT_GAME_RULE_META = {
 			],
 			rows: 1,
 			columns: 1,
-			title: 'BET MODES',
+			title: 'GAME INFORMATION',
 		},
 		{
 			containers: [
 				{
-					title: '',
-					text: 'Malfunction voids all pays and plays. A consistent internet connection is required. In the event of a disconnection, reload the game to finish any uncompleted bets. The theoretical expected return is calculated over many spins. Movement of reels are not representative of any physical device, and is for illustrative purposes only. TM and \u00a9 2023 Twist Gaming.',
+					title: 'RESPONSIBLE GAMING',
+					text: 'Gambling should be entertaining and not a way to make money. Please gamble responsibly.\n\n• Set time and money limits before you start playing\n• Never chase your losses\n• Take regular breaks\n• Don\'t gamble if you\'re upset, angry, or depressed\n• Only gamble with money you can afford to lose\n\nIf you or someone you know has a gambling problem, help is available:\n\nUK: 0808 8020 133 (GamCare)\nIreland: 1800 936 725 (Gambling Awareness Trust)\nCanada: 1-866-531-2600 (ConnexOntario)\nAustralia: 1800 858 858 (Gambling Help Online)\nNew Zealand: 0800 654 655 (Gambling Helpline)\nSouth Africa: 0800 006 008 (National Responsible Gambling Programme)\n\nFor more information and support, visit: www.begambleaware.org',
 					image: '',
-					row: 0,
-					column: 0,
-				},
-			],
-			rows: 1,
-			columns: 1,
-			title: 'LEGAL NOTICE',
-		},
-		{
-			containers: [
-				{
-					title: '',
-					text: 'SPIN BUTTON | Initiates the Betting Round.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleSpin.daacc43a.webp',
-					imagePosition: 'left',
+					imagePosition: 'top',
 					row: 0,
 					column: 0,
 				},
 				{
-					title: '',
-					text: 'STOP BUTTON | Stops the current Spin.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleStop.30db74c5.webp',
-					imagePosition: 'left',
+					title: 'LEGAL DISCLAIMER',
+					text: 'Malfunction voids all pays and plays. A consistent internet connection is required. In the event of a disconnection, reload the game to finish any uncompleted bets. The theoretical expected return is calculated over many spins. Movement of reels are not representative of any physical device, and is for illustrative purposes only.\n\nThis game is for entertainment purposes only. Gambling can be addictive. Please play responsibly.\n\nTM and © 2025 ZeroEdge Studios.',
+					image: '',
+					imagePosition: 'top',
 					row: 1,
 					column: 0,
 				},
-				{
-					title: '',
-					text: 'INFORMATION | Provides Game Information.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 2,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'SETTINGS | Adjust Game Settings.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 4,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'PAY TABLE | View the Paytable to see Symbol Values.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 6,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'AUTO SPIN | Open the Auto Spin pop-up menu.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleAutoSpin.d542a3b0.webp',
-					imagePosition: 'left',
-					row: 7,
-					column: 0,
-				},
-
-				{
-					title: '',
-					text: 'TURBO | Activate Turbo Mode.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleTurbo.a0fcfd04.webp',
-					imagePosition: 'left',
-					row: 9,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'MENU | Expands the Sidebar Menu for more Options.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 10,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'CLOSE | Exit the pop-up menu.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 11,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'SOUND | Mute or Unmute Game Audio.',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 12,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'INCREASE | Increase your Bet Amount',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 13,
-					column: 0,
-				},
-				{
-					title: '',
-					text: 'DECREASE | Decrease your Bet Amount',
-					image:
-						'https://staging-1-0.twist-game.app/_app/immutable/assets/gameRuleDown.716ec429.webp',
-					imagePosition: 'left',
-					row: 14,
-					column: 0,
-				},
 			],
-			rows: 16,
+			rows: 2,
 			columns: 1,
-			title: 'USER INTERFACE GUIDE',
+			title: 'LEGAL NOTICE',
 		},
+
 	],
 	splashScreen: [],
 };
