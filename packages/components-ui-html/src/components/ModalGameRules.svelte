@@ -16,7 +16,7 @@
 		<div class="modal-container" on:click|stopPropagation>
 			<div class="modal-content">
 				<button class="close-button" on:click={() => (stateModal.modal = null)}>×</button>
-				<h1 class="modal-title">Game Rules</h1>
+				<h1 class="modal-title">Game Information</h1>
 						<div class="scrollable-content">
 			{@render props.children()}
 		</div>

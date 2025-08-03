@@ -9,6 +9,7 @@ import type { GameType, RawSymbol, SymbolState } from './types';
 import { stateLayoutDerived } from './stateLayout';
 import { winLevelMap } from './winLevelMap';
 import { eventEmitter } from './eventEmitter';
+import { assignWildMultiplier } from './utils';
 import {
 	SYMBOL_SIZE,
 	BOARD_SIZES,
@@ -40,10 +41,15 @@ const onSymbolLand = ({ rawSymbol }: { rawSymbol: RawSymbol }) => {
 };
 
 const board = _.range(BOARD_DIMENSIONS.x).map((reelIndex) => {
+	// Apply wild multipliers to initial symbols (default to base game)
+	const initialSymbolsWithMultipliers = INITIAL_BOARD[reelIndex].map(symbol => 
+		assignWildMultiplier(symbol, false) // Default to base game multipliers
+	);
+
 	const reel = createReelForSpinning({
 		reelIndex,
 		symbolHeight: SYMBOL_SIZE,
-		initialSymbols: INITIAL_BOARD[reelIndex],
+		initialSymbols: initialSymbolsWithMultipliers,
 		initialSymbolState: INITIAL_SYMBOL_STATE,
 		onReelStopping: () => {
 			// Trigger sound when reel starts stopping (earlier in animation)

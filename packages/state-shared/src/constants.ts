@@ -269,7 +269,7 @@ const DEFAULT_GAME_RULE_META = {
 				},
 				{
 					title: 'WILD SYMBOL',
-					text: 'The Wild symbol substitutes for all other symbols except Scatter symbols to create winning combinations. Wild symbols can appear on all reels and may carry random multipliers from 2x to 10x.\n\nWhen a Wild symbol is part of a winning combination, the win is multiplied by the Wild\'s multiplier value.',
+					text: 'The Wild symbol substitutes for all other symbols except Scatter symbols to create winning combinations. Wild symbols can appear on all reels and may carry random multipliers from 2x to 100x.\n\nWhen a Wild symbol is part of a winning combination, the win is multiplied by the Wild\'s multiplier value.\n\nIn the Blood Eclipse bonus, Wild symbols have a higher chance of carrying larger multipliers, with a minimum of 5x.',
 					image: '',
 					imagePosition: 'left',
 					row: 1,
@@ -292,7 +292,7 @@ const DEFAULT_GAME_RULE_META = {
 			containers: [
 				{
 					title: 'SHADOW SPINS BONUS',
-					text: 'The Shadow Spins bonus can be purchased for 100x your base bet. This bonus provides 6-10 Shadow Spins with enhanced Wild symbol frequency and random multipliers.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (6-10) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nAll wins during Shadow Spins bonus are multiplied by the total bet.',
+					text: 'The Shadow Spins bonus can be purchased for 100x your base bet. This bonus provides 6-10 Free Spins with enhanced Wild symbol frequency and random multipliers.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (6-10) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nWild multipliers range from 2x to 100x, with enhanced frequency during this bonus.',
 					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_bonusbuy.webp',
 					imagePosition: 'left',
 					row: 0,
@@ -307,7 +307,7 @@ const DEFAULT_GAME_RULE_META = {
 			containers: [
 				{
 					title: 'BLOOD ECLIPSE SUPER BONUS',
-					text: 'The Blood Eclipse super bonus can be purchased for 500x your base bet. This bonus provides 8-14 Shadow Spins with guaranteed enhanced Wild symbols.\n\nDuring Blood Eclipse, at least one multiplier Wild symbol drops every spin, all with a minimum value of 5x. The Wild drop rate is significantly increased throughout the feature.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (8-14) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nAll wins during Blood Eclipse are multiplied by the total bet.',
+					text: 'The Blood Eclipse super bonus can be purchased for 500x your base bet. This bonus provides 8-14 Free Spins with guaranteed enhanced Wild symbols.\n\nDuring Blood Eclipse, at least one multiplier Wild symbol drops every spin, all with a minimum value of 5x. Wild multipliers range from 5x to 100x, with significantly higher chances for larger multipliers (25x, 50x, 100x).\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (8-14) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.',
 					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superbonusbuy.webp',
 					imagePosition: 'left',
 					row: 0,

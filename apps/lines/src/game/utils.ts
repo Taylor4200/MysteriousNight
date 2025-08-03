@@ -61,3 +61,24 @@ export const getSymbolInfo = ({
 }) => {
 	return SYMBOL_INFO_MAP[rawSymbol.name][state];
 };
+
+// Wild multiplier generation functions
+import { randomInteger } from 'utils-shared/random';
+import { WILD_MULTIPLIERS, BLOOD_ECLIPSE_WILD_MULTIPLIERS } from './constants';
+
+export const generateWildMultiplier = (isBloodEclipse: boolean = false): number => {
+	const multipliers = isBloodEclipse ? BLOOD_ECLIPSE_WILD_MULTIPLIERS : WILD_MULTIPLIERS;
+	const randomIndex = randomInteger({ min: 0, max: multipliers.length - 1 });
+	return multipliers[randomIndex];
+};
+
+export const assignWildMultiplier = (rawSymbol: RawSymbol, isBloodEclipse: boolean = false): RawSymbol => {
+	if (rawSymbol.name === 'W') {
+		// ALWAYS override wild multipliers to use our valid ranges
+		return {
+			...rawSymbol,
+			multiplier: generateWildMultiplier(isBloodEclipse),
+		};
+	}
+	return rawSymbol;
+};

@@ -5,7 +5,7 @@ import { stateBet, stateUi } from 'state-shared';
 import { sequence } from 'utils-shared/sequence';
 
 import { eventEmitter } from './eventEmitter';
-import { playBookEvent } from './utils';
+import { playBookEvent, assignWildMultiplier } from './utils';
 import { winLevelMap, type WinLevel, type WinLevelData } from './winLevelMap';
 import { stateGame, stateGameDerived } from './stateGame.svelte';
 import type { BookEvent, BookEventOfType, BookEventContext } from './typesBookEvent';
@@ -62,9 +62,17 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		}
 
 		stateGame.gameType = bookEvent.gameType;
+		
+		// Only Blood Eclipse super bonus gets minimum 5x wilds
+		// Regular Shadow Spins bonus uses full 2x-100x range
+		const isBloodEclipse = bookEvent.gameType === 'freegame' && stateBet.activeBetModeKey === 'SUPERSPIN';
+		const paddingBoardWithMultipliers = config.paddingReels[bookEvent.gameType].map(reel => 
+			reel.map(symbol => assignWildMultiplier(symbol, isBloodEclipse))
+		);
+		
 		await stateGameDerived.enhancedBoard.spin({
 			revealEvent: bookEvent,
-			paddingBoard: config.paddingReels[bookEvent.gameType],
+			paddingBoard: paddingBoardWithMultipliers,
 		});
 		eventEmitter.broadcast({ type: 'soundScatterCounterClear' });
 		console.log('[Lines Game] reveal handler completed');

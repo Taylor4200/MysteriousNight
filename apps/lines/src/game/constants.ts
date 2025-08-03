@@ -97,6 +97,10 @@ export const INITIAL_BOARD: RawSymbol[][] = [
 
 export const BOARD_DIMENSIONS = { x: INITIAL_BOARD.length, y: INITIAL_BOARD[0].length - 2 };
 
+// Wild multiplier values
+export const WILD_MULTIPLIERS = [2, 5, 10, 20, 25, 50, 100];
+export const BLOOD_ECLIPSE_WILD_MULTIPLIERS = [5, 10, 20, 25, 50, 100]; // Minimum 5x for Blood Eclipse only
+
 export const BOARD_SIZES = {
 	width: SYMBOL_SIZE * BOARD_DIMENSIONS.x,
 	height: SYMBOL_SIZE * BOARD_DIMENSIONS.y,

@@ -14,96 +14,86 @@
 
 	const props: Props = $props();
 
-	// Paytable data with actual symbol assets
+	// Paytable data with new tiered structure
 	const paytableData = [
 		{
 			symbol: 'W',
 			name: 'Wild',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/wild.png',
+			asset: '/assets/symbols/wild.png',
 			payouts: [
-				{ count: 5, multiplier: 10 },
-				{ count: 4, multiplier: 5 },
-				{ count: 3, multiplier: 2 }
+				{ count: 5, multiplier: 100 },
+				{ count: 4, multiplier: 30 },
+				{ count: 3, multiplier: 10 }
 			]
 		},
 		{
 			symbol: 'H1',
-			name: 'Wolf',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/wolf_icon.png',
+			name: 'Top Symbol',
+			asset: '/assets/symbols/wolf_icon.png',
 			payouts: [
-				{ count: 5, multiplier: 5 },
-				{ count: 4, multiplier: 2 },
-				{ count: 3, multiplier: 1 }
+				{ count: 5, multiplier: 50 },
+				{ count: 4, multiplier: 15 },
+				{ count: 3, multiplier: 5 }
 			]
 		},
 		{
 			symbol: 'H2',
-			name: 'Character',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/queen.png',
+			name: '2nd Premium',
+			asset: '/assets/symbols/king.png',
 			payouts: [
-				{ count: 5, multiplier: 5 },
-				{ count: 4, multiplier: 2 },
-				{ count: 3, multiplier: 1 }
+				{ count: 5, multiplier: 25 },
+				{ count: 4, multiplier: 10 },
+				{ count: 3, multiplier: 4 }
 			]
 		},
 		{
 			symbol: 'H3',
-			name: 'King',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/king.png',
+			name: '3rd Premium',
+			asset: '/assets/symbols/queen.png',
 			payouts: [
-				{ count: 5, multiplier: 3 },
-				{ count: 4, multiplier: 1 },
-				{ count: 3, multiplier: 0.5 }
-			]
-		},
-		{
-			symbol: 'H4',
-			name: 'Queen',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/queen.png',
-			payouts: [
-				{ count: 5, multiplier: 3 },
-				{ count: 4, multiplier: 1 },
-				{ count: 3, multiplier: 0.5 }
+				{ count: 5, multiplier: 15 },
+				{ count: 4, multiplier: 6 },
+				{ count: 3, multiplier: 3 }
 			]
 		},
 		{
 			symbol: 'L1',
-			name: 'A',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/A.png',
+			name: 'Low Symbol',
+			asset: '/assets/symbols/A.png',
 			payouts: [
-				{ count: 5, multiplier: 2 },
-				{ count: 4, multiplier: 0.8 },
-				{ count: 3, multiplier: 0.4 }
+				{ count: 5, multiplier: 6 },
+				{ count: 4, multiplier: 4 },
+				{ count: 3, multiplier: 2 }
 			]
 		},
 		{
 			symbol: 'L2',
-			name: 'K',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/K.png',
+			name: 'Low Symbol',
+			asset: '/assets/symbols/K.png',
 			payouts: [
-				{ count: 5, multiplier: 2 },
-				{ count: 4, multiplier: 0.8 },
-				{ count: 3, multiplier: 0.4 }
+				{ count: 5, multiplier: 6 },
+				{ count: 4, multiplier: 4 },
+				{ count: 3, multiplier: 2 }
 			]
 		},
 		{
 			symbol: 'L3',
-			name: 'Q',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/Q.png',
+			name: 'Low Symbol',
+			asset: '/assets/symbols/Q.png',
 			payouts: [
-				{ count: 5, multiplier: 1.5 },
-				{ count: 4, multiplier: 0.5 },
-				{ count: 3, multiplier: 0.2 }
+				{ count: 5, multiplier: 5 },
+				{ count: 4, multiplier: 3 },
+				{ count: 3, multiplier: 1.2 }
 			]
 		},
 		{
 			symbol: 'L4',
-			name: 'J',
-			asset: 'https://staging-1-0.twist-game.app/_app/immutable/assets/J.png',
+			name: 'Low Symbol',
+			asset: '/assets/symbols/J.png',
 			payouts: [
-				{ count: 5, multiplier: 1.5 },
-				{ count: 4, multiplier: 0.5 },
-				{ count: 3, multiplier: 0.2 }
+				{ count: 5, multiplier: 5 },
+				{ count: 4, multiplier: 3 },
+				{ count: 3, multiplier: 1.2 }
 			]
 		}
 	];
