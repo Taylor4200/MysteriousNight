@@ -96,12 +96,12 @@ export default {
   // Bitmap Font
   gladiators_font: {
     type: 'sprite',
-    src: new URL('../../assets/fonts/font/Gladiators.png', import.meta.url).href,
+    src: '/assets/fonts/font/Gladiators.png',
     preload: true,
   },
   gladiators_fnt: {
-    type: 'sprite',
-    src: new URL('../../assets/fonts/font/Gladiators.fnt', import.meta.url).href,
+    type: 'font',
+    src: '/assets/fonts/font/Gladiators.fnt',
     preload: true,
   },
 

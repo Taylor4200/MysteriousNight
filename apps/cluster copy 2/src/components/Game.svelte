@@ -38,6 +38,7 @@ import ModalsCluster from './ModalsCluster.svelte';
     
 	import DustParticleManager from './DustParticleManager.svelte';
     import MeatField from './MeatField.svelte';
+    import RunWinCounter from './RunWinCounter.svelte';
 
 	const context = getContext();
 	let showInfo = $state(false);
@@ -111,6 +112,9 @@ import ModalsCluster from './ModalsCluster.svelte';
 
         <!-- Visual-only collectible field -->
         <MeatField />
+
+        <!-- Visual-only run win counter above player's head -->
+        <RunWinCounter />
 
         <UI>
 			{#snippet gameName()}

@@ -69,7 +69,6 @@
 			<AtmosphericElements />
 			<Board />
 			<Anticipations />
-			<AmbientBats />
 		</MainContainer>
 
 		<MainContainer>
@@ -78,7 +77,7 @@
 
 		<UI>
 			{#snippet gameName()}
-				<UiGameName name="Mysterious Night" />
+				<UiGameName name="Midnight Prowl" />
 			{/snippet}
 			{#snippet logo()}
 				<Text

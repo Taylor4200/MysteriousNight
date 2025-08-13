@@ -175,6 +175,8 @@
     let stumbleFrozen = $state(false); // hold last frame on ground until next run
     const startStumble = () => {
         if (stumblePlaying || stumbleFrozen || !hasRunAtLeastOnce || !hasDeath) return;
+        // Notify listeners that a stumble (loss) occurred
+        context.eventEmitter.broadcast({ type: 'playerStumbled' });
         stumblePlaying = true;
         stumbleFrozen = false;
         // auto-clear after animation duration

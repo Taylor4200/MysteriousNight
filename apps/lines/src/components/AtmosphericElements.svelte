@@ -48,7 +48,7 @@
 <!-- Logo - positioned at top center with adjustable offset -->
 <Sprite
 	key="logo"
-	anchor={0.5}
+	anchor={0.45}
 	zIndex={100}
 	x={logoPosition().x}
 	y={logoPosition().y}
@@ -69,17 +69,7 @@
 	alpha={1}
 />
 
-<!-- Spikes - atmospheric foreground element with adjustable position -->
-<Sprite
-	key="spikes"
-	anchor={0.5}
-	zIndex={5}
-	x={context.stateGameDerived.boardLayout().x + SPIKES_OFFSET_X}
-	y={context.stateGameDerived.boardLayout().y + SPIKES_OFFSET_Y}
-	width={context.stateGameDerived.boardLayout().width * SPIKES_SCALE}
-	height={200 * SPIKES_SCALE}
-	alpha={1}
-/>
+<!-- Spikes removed -->
 
 <!-- Frame back - perfectly aligned behind main frame, scales with it automatically -->
 <Sprite
