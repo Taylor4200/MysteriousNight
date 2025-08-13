@@ -25,7 +25,7 @@
 	import FreeSpinCounter from './FreeSpinCounter.svelte';
 	import FreeSpinOutro from './FreeSpinOutro.svelte';
 	import Transition from './Transition.svelte';
-	import BonusGameChests from './BonusGameChests.svelte';
+    // BonusGameChests removed (skip picker)
 	import HitAnimations from './HitAnimations.svelte';
 	import AmbientBats from './AmbientBats.svelte';
 	import AtmosphericElements from './AtmosphericElements.svelte';
@@ -96,7 +96,7 @@
 		</UI>
 		<Win />
 		<FreeSpinIntro />
-		<BonusGameChests />
+        <!-- Bonus picker removed: go straight to bonus flow -->
 		{#if ['desktop', 'landscape'].includes(context.stateLayoutDerived.layoutType())}
 			<FreeSpinCounter />
 		{/if}

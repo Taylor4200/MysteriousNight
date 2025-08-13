@@ -129,22 +129,22 @@ export const bookEventHandlerMap: BookEventHandlerMap<BookEvent, BookEventContex
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'ScatterWinV2' });
 		await animateSymbols({ positions: bookEvent.positions });
 		
-		// show bonus game chests
+		// Skip chest picker: show a modal "You've won X free spins" and wait for click to start
 		console.log(`🔊 [BONUS DEBUG] Playing FsRespin (free spin respin sound)`);
 		eventEmitter.broadcast({ type: 'soundOnce', name: 'FsRespin' });
 		await eventEmitter.broadcastAsync({ type: 'uiHide' });
 		await eventEmitter.broadcastAsync({ type: 'transition' });
-		eventEmitter.broadcast({ type: 'bonusGameChestsShow' });
-		
+
+		// Show a simple confirmation UI panel and wait for user to click to start bonus
+        eventEmitter.broadcast({ type: 'freeSpinIntroShow', total: bookEvent.totalFs });
 		console.log(`🔊 [BONUS DEBUG] Playing Freespin_music (bonus game music)`);
 		eventEmitter.broadcast({ type: 'soundMusic', name: 'Freespin_music' });
-		
-		await eventEmitter.broadcastAsync({
-			type: 'bonusGameChestsUpdate',
-			totalFreeSpins: bookEvent.totalFs,
-		});
+
+		// After click, FreeSpinIntro component should emit 'freeSpinIntroStart' we listen to via event system
+        await eventEmitter.broadcastAsync({ type: 'freeSpinIntroStartAwait' });
+		eventEmitter.broadcast({ type: 'freeSpinIntroHide' });
+
 		stateGame.gameType = 'freegame';
-		eventEmitter.broadcast({ type: 'bonusGameChestsHide' });
 		eventEmitter.broadcast({ type: 'boardFrameGlowShow' });
 		eventEmitter.broadcast({ type: 'freeSpinCounterShow' });
 		stateUi.freeSpinCounterShow = true;

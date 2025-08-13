@@ -1,8 +1,8 @@
 <script lang="ts" module>
-	export type EmitterEventFreeSpinIntro =
-		| { type: 'freeSpinIntroShow' }
+export type EmitterEventFreeSpinIntro =
+		| { type: 'freeSpinIntroShow'; total: number }
 		| { type: 'freeSpinIntroHide' }
-		| { type: 'freeSpinIntroUpdate'; totalFreeSpins: number };
+		| { type: 'freeSpinIntroStartAwait' };
 </script>
 
 <script lang="ts">
@@ -26,14 +26,12 @@
 	let oncomplete = $state(() => {});
 
 	context.eventEmitter.subscribeOnMount({
-		freeSpinIntroShow: () => (show = true),
+		freeSpinIntroShow: (e: { total: number }) => {
+			freeSpinsFromEvent = e.total;
+			show = true;
+		},
 		freeSpinIntroHide: () => (show = false),
-		freeSpinIntroUpdate: async (emitterEvent) => {
-			// if (emitterEvent.extraSpins) {
-			// 	context.eventEmitter.broadcast({ type: 'soundOnce', name: 'sfx_fs_respins' });
-			// }
-			// freeSpinsFromEvent = emitterEvent.extraSpins ?? emitterEvent.totalFreeSpins;
-			freeSpinsFromEvent = emitterEvent.totalFreeSpins;
+		freeSpinIntroStartAwait: async () => {
 			await waitForResolve((resolve) => (oncomplete = resolve));
 		},
 	});

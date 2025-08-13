@@ -41,13 +41,13 @@ const DEFAULT_BET_MODE_META = {
 				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_8_97/betModes/button_buy.webp',
 		},
 		text: {
-			title: 'Shadow Spins',
+			title: 'Lunar Loot',
 			dialog:
-				' Triggers the Shadow Spins feature for 100x your bet. Increased chance for wild symbols to land with multipliers. Chest provides between 6-10 free spins',
-			description: 'FREE SPINS with a higher frequency of wild symbols appearing with random multipliers. 6-10 free spins',
+				' Activates the Lunar Loot feature for 100x your bet. Increased chance for wild symbols to land with multipliers. Provides 8 free spins.',
+			description: 'FREE SPINS with a higher frequency of wild symbols appearing with random multipliers. 8 free spins',
 			button: 'BUY',
 			tickerIdle: 'PLACE YOUR BET',
-			tickerSpin: 'SHADOW SPINS BUY ACTIVATED',
+			tickerSpin: 'LUNAR LOOT BUY ACTIVATED',
 			bannerText: 'example banner text',
 		},
 	},
@@ -67,7 +67,7 @@ const DEFAULT_GAME_RULE_META = {
 				},
 				{
 					title: 'FREE SPINS',
-					text: 'Scatter Symbols are on all reels. If at least 3 Scatters land in a spin sequence, FREE SPINS is triggered. 3 Scatters award 8 FREE SPINS. 4 Scatters award 12 FREE SPINS. 5 Scatters award 16 FREE SPINS. ',
+						text: 'Free Spins are awarded via the Lunar Loot Bonus. This feature provides 8 Free Spins.',
 					image: 'https://staging-1-0.twist-game.app/_app/immutable/assets/wild.ac78fbf6.png',
 					imagePosition: 'left',
 					row: 1,
@@ -216,14 +216,7 @@ const DEFAULT_GAME_RULE_META = {
 					row: 1,
 					column: 0,
 				},
-				{
-					title: 'SCATTER SYMBOL',
-					text: 'Scatter symbols can appear on all reels and trigger the Free Spins feature when 3 or more land anywhere on the reels.\n\n3 Scatters = 8 Free Spins\n4 Scatters = 12 Free Spins\n5 Scatters = 16 Free Spins\n\nDuring Free Spins, Scatter symbols are on all reels and can retrigger additional Free Spins:\n\n3 Scatters = 4 additional Free Spins\n4 Scatters = 6 additional Free Spins\n5 Scatters = 8 additional Free Spins',
-					image: '',
-					imagePosition: 'left',
-					row: 2,
-					column: 0,
-				},
+				// Scatter section removed
 			],
 			rows: 3,
 			columns: 1,
@@ -232,8 +225,8 @@ const DEFAULT_GAME_RULE_META = {
 		{
 			containers: [
 				{
-					title: 'SHADOW SPINS BONUS',
-					text: 'The Shadow Spins bonus can be purchased for 100x your base bet. This bonus provides 6-10 Free Spins with enhanced Wild symbol frequency and random multipliers.\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (6-10) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.\n\nWild multipliers range from 2x to 100x, with enhanced frequency during this bonus.',
+					title: 'LUNAR LOOT BONUS',
+					text: 'The Lunar Loot Bonus can be purchased for 100x your base bet. This bonus provides 8 Free Spins with enhanced Wild symbol frequency and random multipliers.',
 					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_bonusbuy.webp',
 					imagePosition: 'left',
 					row: 0,
@@ -249,7 +242,7 @@ const DEFAULT_GAME_RULE_META = {
 			containers: [
 				{
 					title: '',
-					text: 'Theoretical Return to Player (RTP):\n\n• Base Game: 95.2%\n• Shadow Spins Bonus: 94.7%\n\nMaximum Win: 10,000x base bet',
+					text: 'Theoretical Return to Player (RTP):\n\n• Base Game: 95.2%\n• Lunar Loot Bonus: 94.7%\n\nMaximum Win: 10,000x base bet',
 					image: '',
 					imagePosition: 'top',
 					row: 0,
