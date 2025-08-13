@@ -14,7 +14,7 @@ export const { getEmptyBoard } = createGetEmptyPaddedBoard({ reelsDimensions: BO
 export const { playBookEvent, playBookEvents } = createPlayBookUtils({ bookEventHandlerMap });
 export const playBet = async (bet: Bet) => {
 	stateBet.winBookEventAmount = 0;
-	await playBookEvents(bet.state);
+	await playBookEvents(bet.events);
 	eventEmitter.broadcast({ type: 'stopButtonEnable' });
 };
 
@@ -28,10 +28,10 @@ const BOOK_EVENT_TYPES_TO_RESERVE_FOR_SNAPSHOT = [
 
 export const convertTorResumableBet = (lastBetData: Bet) => {
 	const resumingIndex = Number(lastBetData.event);
-	const bookEventsBeforeResume = lastBetData.state.filter(
+	const bookEventsBeforeResume = lastBetData.events.filter(
 		(_, eventIndex) => eventIndex < resumingIndex,
 	);
-	const bookEventsAfterResume = lastBetData.state.filter(
+	const bookEventsAfterResume = lastBetData.events.filter(
 		(_, eventIndex) => eventIndex >= resumingIndex,
 	);
 
@@ -43,9 +43,9 @@ export const convertTorResumableBet = (lastBetData: Bet) => {
 		),
 	};
 
-	const stateToResume = [bookEventToCreateSnapshot, ...bookEventsAfterResume];
+	const eventsToResume = [bookEventToCreateSnapshot, ...bookEventsAfterResume];
 
-	return { ...lastBetData, state: stateToResume };
+	return { ...lastBetData, events: eventsToResume };
 };
 
 // other utils

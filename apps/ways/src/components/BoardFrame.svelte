@@ -30,7 +30,7 @@
 	});
 </script>
 
-{#if animationName}
+{#if false}
 	<SpineProvider
 		zIndex={-1}
 		key="reelhouse"

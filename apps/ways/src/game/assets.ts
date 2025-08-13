@@ -223,14 +223,6 @@ export default {
 			scale: 2,
 		},
 	},
-	reelhouse: {
-		type: 'spine',
-		src: {
-			atlas: new URL('../../assets/spines/reelhouse/reelhouse_glow.atlas', import.meta.url).href,
-			skeleton: new URL('../../assets/spines/reelhouse/reelhouse_glow.json', import.meta.url).href,
-			scale: 2,
-		},
-	},
 	progressBar: {
 		type: 'sprites',
 		src: new URL('../../assets/sprites/progressBar/progressBar.json', import.meta.url).href,

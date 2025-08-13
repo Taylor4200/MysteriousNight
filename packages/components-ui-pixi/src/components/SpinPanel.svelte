@@ -52,7 +52,20 @@
 
 	function handleAutoplayClick() {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		if (showAutoplayModal) {
+		
+		// Check if we're in free spins mode and auto play is active
+		const isAutoPlayActive = stateBetDerived.hasAutoBetCounter();
+		const isInFreeSpins = stateUi.freeSpinCounterShow;
+		
+		if (isInFreeSpins && isAutoPlayActive) {
+			// Cancel free spins by stopping auto play
+			stateBet.autoSpinsCounter = 0;
+			// Also hide the free spin counter
+			stateUi.freeSpinCounterShow = false;
+		} else if (isAutoPlayActive) {
+			// Cancel regular auto play
+			stateBet.autoSpinsCounter = 0;
+		} else if (showAutoplayModal) {
 			// Close modal if already open
 			showAutoplayModal = false;
 		} else {
@@ -158,14 +171,14 @@
 							alpha={0.9}
 						/>
 
-						<!-- Autoplay Text -->
+						<!-- Autoplay Text or Counter -->
 						<Text
-							text="AUTOPLAY"
+							text={isAutoplayActive ? (autoplaySpinsLeft === Infinity ? '∞' : autoplaySpinsLeft.toString()) : 'AUTOPLAY'}
 							style={{
-								fontSize: 12,
+								fontSize: isAutoplayActive ? 16 : 12,
 								fill: showAutoplayModal || isAutoplayActive ? 0x000000 : 0xffffff,
 								fontWeight: 'bold',
-								letterSpacing: 1
+								letterSpacing: isAutoplayActive ? 0 : 1
 							}}
 							anchor={0.5}
 						/>
@@ -175,34 +188,8 @@
 		</Container>
 	{/if}
 
-	<!-- Autoplay Spins Counter (Above Spin Button) -->
-	{#if isAutoplayActive}
-		<Container x={0} y={-spinButtonRadius - 30}>
-			<!-- Counter background -->
-			<Rectangle
-				width={80}
-				height={25}
-				backgroundColor={0x00ff88}
-				borderColor={0xffffff}
-				borderWidth={1}
-				borderRadius={12}
-				anchor={0.5}
-				alpha={0.9}
-			/>
-			
-			<!-- Spins left text -->
-			<Text
-				text={autoplaySpinsLeft === Infinity ? '∞' : autoplaySpinsLeft.toString()}
-				style={{
-					fontSize: 14,
-					fill: 0x000000,
-					fontWeight: 'bold',
-					letterSpacing: 1
-				}}
-				anchor={0.5}
-			/>
-		</Container>
-	{/if}
+	<!-- Autoplay Spins Counter (Above Spin Button) - REMOVED -->
+	<!-- Counter is now integrated into the autoplay button above -->
 
 	<!-- Minus Button (Left) - Hidden during bonus games only -->
 	{#if !isBonusGame}

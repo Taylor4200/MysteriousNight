@@ -14,86 +14,86 @@
 
 	const props: Props = $props();
 
+	const baseUrl: string = (import.meta as any).env?.BASE_URL ?? '/';
+	const icon = (name: string) => `${baseUrl}assets/icons/${name}`;
 	// Paytable data with new tiered structure
 	const paytableData = [
 		{
 			symbol: 'W',
-			name: 'Wild',
-			asset: '/assets/symbols/wild.png',
+			name: 'Wild Symbol',
+			asset: icon('wild.png'),
 			payouts: [
-				{ count: 5, multiplier: 100 },
-				{ count: 4, multiplier: 30 },
-				{ count: 3, multiplier: 10 }
+				{ count: 5, multiplier: 50 }
 			]
 		},
 		{
 			symbol: 'H1',
-			name: 'Top Symbol',
-			asset: '/assets/symbols/wolf_icon.png',
+			name: 'High Symbol 1',
+			asset: icon('wolf_icon.png'),
 			payouts: [
-				{ count: 5, multiplier: 50 },
-				{ count: 4, multiplier: 15 },
-				{ count: 3, multiplier: 5 }
+				{ count: 5, multiplier: 5 },
+				{ count: 4, multiplier: 2 },
+				{ count: 3, multiplier: 0.8 }
 			]
 		},
 		{
 			symbol: 'H2',
-			name: '2nd Premium',
-			asset: '/assets/symbols/king.png',
+			name: 'High Symbol 2',
+			asset: icon('king.png'),
 			payouts: [
-				{ count: 5, multiplier: 25 },
-				{ count: 4, multiplier: 10 },
-				{ count: 3, multiplier: 4 }
+				{ count: 5, multiplier: 4 },
+				{ count: 4, multiplier: 1.8 },
+				{ count: 3, multiplier: 0.7 }
 			]
 		},
 		{
 			symbol: 'H3',
-			name: '3rd Premium',
-			asset: '/assets/symbols/queen.png',
+			name: 'High Symbol 3',
+			asset: icon('queen.png'),
 			payouts: [
-				{ count: 5, multiplier: 15 },
-				{ count: 4, multiplier: 6 },
-				{ count: 3, multiplier: 3 }
+				{ count: 5, multiplier: 3 },
+				{ count: 4, multiplier: 1.5 },
+				{ count: 3, multiplier: 0.6 }
 			]
 		},
 		{
 			symbol: 'L1',
-			name: 'Low Symbol',
-			asset: '/assets/symbols/A.png',
+			name: 'Low Symbol 1',
+			asset: icon('A.png'),
 			payouts: [
-				{ count: 5, multiplier: 6 },
-				{ count: 4, multiplier: 4 },
-				{ count: 3, multiplier: 2 }
+				{ count: 5, multiplier: 2 },
+				{ count: 4, multiplier: 1.5 },
+				{ count: 3, multiplier: 0.8 }
 			]
 		},
 		{
 			symbol: 'L2',
-			name: 'Low Symbol',
-			asset: '/assets/symbols/K.png',
+			name: 'Low Symbol 2',
+			asset: icon('K.png'),
 			payouts: [
-				{ count: 5, multiplier: 6 },
-				{ count: 4, multiplier: 4 },
-				{ count: 3, multiplier: 2 }
+				{ count: 5, multiplier: 1.8 },
+				{ count: 4, multiplier: 1.3 },
+				{ count: 3, multiplier: 0.7 }
 			]
 		},
 		{
 			symbol: 'L3',
-			name: 'Low Symbol',
-			asset: '/assets/symbols/Q.png',
+			name: 'Low Symbol 3',
+			asset: icon('Q.png'),
 			payouts: [
-				{ count: 5, multiplier: 5 },
-				{ count: 4, multiplier: 3 },
-				{ count: 3, multiplier: 1.2 }
+				{ count: 5, multiplier: 1.8 },
+				{ count: 4, multiplier: 1.3 },
+				{ count: 3, multiplier: 0.7 }
 			]
 		},
 		{
 			symbol: 'L4',
-			name: 'Low Symbol',
-			asset: '/assets/symbols/J.png',
+			name: 'Low Symbol 4',
+			asset: icon('J.png'),
 			payouts: [
-				{ count: 5, multiplier: 5 },
-				{ count: 4, multiplier: 3 },
-				{ count: 3, multiplier: 1.2 }
+				{ count: 5, multiplier: 1.5 },
+				{ count: 4, multiplier: 1.2 },
+				{ count: 3, multiplier: 0.6 }
 			]
 		}
 	];
@@ -114,8 +114,12 @@
 								</div>
 								<div class="payout-info">
 									<div class="payout-line">5={symbol.payouts[0].multiplier}x</div>
-									<div class="payout-line">4={symbol.payouts[1].multiplier}x</div>
-									<div class="payout-line">3={symbol.payouts[2].multiplier}x</div>
+									{#if symbol.payouts[1]}
+										<div class="payout-line">4={symbol.payouts[1].multiplier}x</div>
+									{/if}
+									{#if symbol.payouts[2]}
+										<div class="payout-line">3={symbol.payouts[2].multiplier}x</div>
+									{/if}
 								</div>
 							</div>
 						{/each}

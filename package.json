@@ -2,7 +2,7 @@
   "name": "twist-turbo",
   "version": "0.0.0",
   "private": true,
-	"license": "MIT",
+  "license": "MIT",
   "scripts": {
     "create-audio-sprite": "node scripts/create-audio-sprite.js",
     "create-manual-audio-sprite": "node scripts/create-manual-audio-sprite.js",
@@ -21,6 +21,7 @@
   "dependencies": {
     "eslint": "9.21.0",
     "eslint-config-custom": "workspace:*",
+    "pixi.js": "8.8.1",
     "prettier": "3.5.2",
     "prettier-plugin-svelte": "3.3.3",
     "turbo": "2.4.4"

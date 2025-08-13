@@ -23,37 +23,6 @@ const DEFAULT_BET_MODE_META = {
 		},
 		maxWin: 8888,
 	},
-	ANTE: {
-		mode: 'ANTE',
-		costMultiplier: 1.25,
-		type: 'activate',
-		parent: '',
-		children: '',
-		assets: {
-			icon: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_doubleboost.webp',
-			dialogImage:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/doubleboost_image.webp',
-			dialogVolatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_01.webp',
-			volatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_white_01.webp',
-			button:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/button_activate.webp',
-			bannerText: 'example banner text',
-		},
-		text: {
-			title: 'DOUBLE BOOST',
-			dialog:
-				'Activating DOUBLE BOOST doubles your chance of triggering the FREE SPINS feature. Costs 1.25x your base bet. Remains active until manually disabled.',
-			description: 'Bonus symbols have a higher chance of landing on every spin while active. Remains on until manually disabled.',
-			button: 'ACTIVATE',
-			betAmountLabel: 'DOUBLE BOOST',
-			tickerIdle: 'DOUBLE BOOST IS ACTIVE',
-			tickerSpin: 'GOOD LUCK',
-			bannerText: 'example banner text',
-		},
-	},
-
 	BONUS: {
 		mode: 'BONUS',
 		costMultiplier: 100,
@@ -79,34 +48,6 @@ const DEFAULT_BET_MODE_META = {
 			button: 'BUY',
 			tickerIdle: 'PLACE YOUR BET',
 			tickerSpin: 'SHADOW SPINS BUY ACTIVATED',
-			bannerText: 'example banner text',
-		},
-	},
-	SUPER: {
-		mode: 'SUPER',
-		costMultiplier: 500,
-		type: 'buy',
-		parent: '',
-		children: '',
-		assets: {
-			icon: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superbonusbuy.webp',
-			dialogImage:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/superbonus_image.webp',
-			dialogVolatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_05.webp',
-			volatility:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/volatility/volatility_white_05.webp',
-			button:
-				'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_8_97/betModes/button_buy.webp',
-		},
-		text: {
-			title: 'Blood Eclipse',
-			dialog:
-				'Triggers the Blood Eclipse feature for 500x your bet. At least one multiplier wild drops every spin, all with a minimum value of 5x. Chest provides between 8-14 free spins',
-			description: 'FREE SPINS where at least one multiplier wild lands every spin. All wilds are 5x or higher. Increased wild drop rate throughout. 8-14 free spins',
-			button: 'BUY',
-			tickerIdle: 'PLACE YOUR BET',
-			tickerSpin: 'BLOOD ECLIPSE BUY ACTIVATED',
 			bannerText: 'example banner text',
 		},
 	},
@@ -269,7 +210,7 @@ const DEFAULT_GAME_RULE_META = {
 				},
 				{
 					title: 'WILD SYMBOL',
-					text: 'The Wild symbol substitutes for all other symbols except Scatter symbols to create winning combinations. Wild symbols can appear on all reels and may carry random multipliers from 2x to 100x.\n\nWhen a Wild symbol is part of a winning combination, the win is multiplied by the Wild\'s multiplier value.\n\nIn the Blood Eclipse bonus, Wild symbols have a higher chance of carrying larger multipliers, with a minimum of 5x.',
+					text: 'The Wild symbol substitutes for all other symbols except Scatter symbols to create winning combinations. Wild symbols can appear on all reels and may carry random multipliers from 2x to 100x.\n\nWhen a Wild symbol is part of a winning combination, the win is multiplied by the Wild\'s multiplier value.',
 					image: '',
 					imagePosition: 'left',
 					row: 1,
@@ -303,26 +244,12 @@ const DEFAULT_GAME_RULE_META = {
 			columns: 1,
 			title: 'BONUS FEATURES',
 		},
-		{
-			containers: [
-				{
-					title: 'BLOOD ECLIPSE SUPER BONUS',
-					text: 'The Blood Eclipse super bonus can be purchased for 500x your base bet. This bonus provides 8-14 Free Spins with guaranteed enhanced Wild symbols.\n\nDuring Blood Eclipse, at least one multiplier Wild symbol drops every spin, all with a minimum value of 5x. Wild multipliers range from 5x to 100x, with significantly higher chances for larger multipliers (25x, 50x, 100x).\n\nWhen the bonus is triggered, you will be presented with chests to choose from. The number of Shadow Spins awarded (8-14) is predetermined when the bonus is purchased - your selection of chests does not change the outcome, but adds to the excitement of the feature.',
-					image: 'https://test-fart-cdn-bucket.s3.ap-southeast-2.amazonaws.com/1_9_97/betModes/icon_superbonusbuy.webp',
-					imagePosition: 'left',
-					row: 0,
-					column: 0,
-				},
-			],
-			rows: 1,
-			columns: 1,
-			title: 'SUPER BONUS FEATURES',
-		},
+
 		{
 			containers: [
 				{
 					title: '',
-					text: 'Theoretical Return to Player (RTP):\n\n• Base Game: 96.2%\n• Double Boost Mode: 95.4%\n• Shadow Spins Bonus: 96.0%\n• Blood Eclipse Bonus: 94.5%\n\nMaximum Win: 10,000x base bet',
+					text: 'Theoretical Return to Player (RTP):\n\n• Base Game: 95.2%\n• Shadow Spins Bonus: 94.7%\n\nMaximum Win: 10,000x base bet\n\nGame Version: v1.0.0\nLast Updated: Aug. 8th 2025',
 					image: '',
 					imagePosition: 'top',
 					row: 0,

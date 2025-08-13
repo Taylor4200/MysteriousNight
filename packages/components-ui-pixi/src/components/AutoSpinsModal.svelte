@@ -28,7 +28,7 @@
 
 		// Close modal and start spinning
 		props.onClose();
-		context.eventEmitter.broadcast({ type: 'bet' });
+		context.eventEmitter.broadcast({ type: 'autoBet' });
 	}
 
 	function handleCancel() {

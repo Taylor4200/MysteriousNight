@@ -186,7 +186,7 @@ export interface components {
 			active?: components['schemas']['Active'];
 			mode?: components['schemas']['Mode'];
 			event?: components['schemas']['Event'];
-			state?: components['schemas']['GameState'];
+			events?: components['schemas']['GameState'];
 		};
 		Config: {
 			/** @example BASE */

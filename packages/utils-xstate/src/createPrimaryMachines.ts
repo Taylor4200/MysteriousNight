@@ -6,6 +6,11 @@ import { requestBet, requestForceResult, requestEndRound } from 'rgs-requests';
 
 import type { BaseBet } from './types';
 
+// Helper function to get events from either 'events' or 'state' property
+const getEvents = (round: any): any[] => {
+	return round?.events || round?.state || [];
+};
+
 const handleRequestBet = async ({ onError }: { onError: () => void }) => {
 	try {
 		const data = await requestBet({
@@ -20,13 +25,14 @@ const handleRequestBet = async ({ onError }: { onError: () => void }) => {
 			throw data;
 		}
 
-		if (data?.round?.state && data?.round?.state?.length > 0) {
+		const events = getEvents(data?.round);
+		if (events && events.length > 0) {
 			stateBet.wageredBetAmount = stateBet.betAmount;
 
 			return data;
 		} else {
 			throw {
-				error: 'Empty state in data.round',
+				error: 'Empty events in data.round',
 				message: JSON.stringify({ data }),
 			};
 		}
@@ -172,7 +178,8 @@ function createPrimaryMachines<TBet extends BaseBet>(options: Options<TBet>) {
 			return { bet: onResumeGameActive(lastBetData), rawBet: lastBetData };
 		}
 
-		if (lastBetData && lastBetData.state && lastBetData.state.length > 0) {
+		// resume bet
+		if (lastBetData && getEvents(lastBetData).length > 0) {
 			onResumeGameInactive(lastBetData);
 		}
 
@@ -241,7 +248,7 @@ function createPrimaryMachines<TBet extends BaseBet>(options: Options<TBet>) {
 					round: {
 						mode: stateForce.forceBetModeKey.toUpperCase(),
 						payoutMultiplier: 2,
-						state: forceJsonObject.events,
+						events: forceJsonObject.events,
 					},
 					error: null,
 					balance: null,
@@ -268,20 +275,21 @@ function createPrimaryMachines<TBet extends BaseBet>(options: Options<TBet>) {
 				throw data;
 			}
 
-			if (data?.round?.state && data?.round?.state?.length > 0) {
+			const events = getEvents(data?.round);
+			if (events && events.length > 0) {
 				if (data?.balance?.amount !== undefined) {
 					handleUpdateBalance({ balanceAmountFromApi: data.balance.amount });
 				}
 
 				stateBet.wageredBetAmount = stateBet.betAmount;
-				if (data.round.mode) {
+				if (data?.round?.mode) {
 					stateBet.activeBetModeKey = data.round.mode;
 				}
 
 				return { bet: data.round as TBet, rawBet: null };
 			} else {
 				throw {
-					error: 'Empty state in data.round',
+					error: 'Empty events in data.round',
 					message: JSON.stringify({ data }),
 				};
 			}

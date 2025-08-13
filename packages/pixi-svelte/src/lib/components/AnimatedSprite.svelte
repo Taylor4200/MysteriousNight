@@ -3,11 +3,12 @@
 
 	import type { OverwriteCursor } from '../types';
 
-	export type Props = OverwriteCursor<PIXI.AnimatedSpriteOptions> & {
-		animationSpeed?: PIXI.AnimatedSprite['animationSpeed'];
-		loop?: PIXI.AnimatedSprite['loop'];
-		play?: boolean;
-	};
+export type Props = OverwriteCursor<PIXI.AnimatedSpriteOptions> & {
+    animationSpeed?: PIXI.AnimatedSprite['animationSpeed'];
+    loop?: PIXI.AnimatedSprite['loop'];
+    play?: boolean;
+    currentFrame?: number; // manual frame control support
+};
 </script>
 
 <script lang="ts">
@@ -19,15 +20,27 @@
 	const parentContext = getContextParent();
 	const animatedSprite = new PIXI.AnimatedSprite(props.textures ?? []);
 
-	propsSyncEffect({ props, target: animatedSprite, ignore: ['play'] });
+propsSyncEffect({ props, target: animatedSprite, ignore: ['play'] });
 
-	$effect(() => {
-		if (props.play) {
-			animatedSprite.gotoAndPlay(0);
-		} else {
-			animatedSprite.gotoAndStop(0);
-		}
-	});
+$effect(() => {
+    const frame = props.currentFrame ?? 0;
+    if (props.play) {
+        animatedSprite.gotoAndPlay(frame);
+    } else {
+        animatedSprite.gotoAndStop(frame);
+    }
+});
+
+// Keep currentFrame in sync when play is false and currentFrame changes
+$effect(() => {
+    if (typeof props.currentFrame === 'number') {
+        if (props.play) {
+            animatedSprite.gotoAndPlay(props.currentFrame);
+        } else {
+            animatedSprite.gotoAndStop(props.currentFrame);
+        }
+    }
+});
 
 	parentContext.addToParent(animatedSprite);
 </script>

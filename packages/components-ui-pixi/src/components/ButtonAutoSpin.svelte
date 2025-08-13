@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { Container, Text, Rectangle } from 'pixi-svelte';
 	import { Button, type ButtonProps } from 'components-pixi';
-	import { stateBet, stateBetDerived, stateModal } from 'state-shared';
+	import { stateBet, stateBetDerived, stateModal, stateUi } from 'state-shared';
 
 	import { getContext } from '../context';
 	import { UI_BASE_SIZE, UI_BASE_FONT_SIZE } from '../constants';
-	import ButtonBetAutoSpinsCounter from './ButtonBetAutoSpinsCounter.svelte';
 	import { i18nDerived } from '../i18n/i18nDerived';
 
 	const props: Partial<Omit<ButtonProps, 'children'>> = $props();
@@ -23,8 +22,44 @@
 	const openModal = () => (stateModal.modal = { name: 'autoSpin' });
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
-		stateBetDerived.hasAutoBetCounter() ? stopAutoSpin() : openModal();
+		
+		// Check if we're in free spins mode and auto play is active
+		const isAutoPlayActive = stateBetDerived.hasAutoBetCounter();
+		const isInFreeSpins = stateUi.freeSpinCounterShow;
+		
+		if (isInFreeSpins && isAutoPlayActive) {
+			// Cancel free spins by stopping auto play
+			stopAutoSpin();
+			// Also hide the free spin counter
+			stateUi.freeSpinCounterShow = false;
+		} else if (stateBetDerived.hasAutoBetCounter()) {
+			stopAutoSpin();
+		} else {
+			openModal();
+		}
 	};
+
+	// Determine what text to show on the button
+	const buttonText = $derived(() => {
+		if (stateBet.autoSpinsCounter > 0) {
+			return stateBet.autoSpinsCounter === Infinity ? '∞' : stateBet.autoSpinsCounter.toString();
+		}
+		return '🔄';
+	});
+
+	// Determine font size based on counter value
+	const fontSize = $derived.by(() => {
+		if (stateBet.autoSpinsCounter > 0) {
+			if (stateBet.autoSpinsCounter === Infinity) return UI_BASE_FONT_SIZE * 1.5;
+			if (stateBet.autoSpinsCounter > 99) return UI_BASE_FONT_SIZE * 0.8;
+			if (stateBet.autoSpinsCounter > 9) return UI_BASE_FONT_SIZE * 1.0;
+			return UI_BASE_FONT_SIZE * 1.2;
+		}
+		return UI_BASE_FONT_SIZE * 1.2;
+	});
+
+	// Determine if text should be bold
+	const isBold = $derived(stateBet.autoSpinsCounter > 0);
 </script>
 
 <Button {...props} {sizes} {disabled} {onpress}>
@@ -54,20 +89,16 @@
 				/>
 			{/if}
 
-			<!-- Rotating arrows icon -->
+			<!-- Button text (counter or icon) -->
 			<Text
 				anchor={0.5}
-				text="🔄"
+				text={buttonText}
 				style={{
-					fontSize: UI_BASE_FONT_SIZE * 1.2,
+					fontSize,
 					fill: disabled ? 0x888888 : (active ? 0x000000 : 0x00ff88),
+					fontWeight: isBold ? 'bold' : 'normal',
 				}}
 			/>
-
-			<!-- Auto spin counter overlay -->
-	<Container x={sizes.width * 0.5} y={sizes.height * 0.5}>
-		<ButtonBetAutoSpinsCounter />
-	</Container>
 		</Container>
 	{/snippet}
 </Button>

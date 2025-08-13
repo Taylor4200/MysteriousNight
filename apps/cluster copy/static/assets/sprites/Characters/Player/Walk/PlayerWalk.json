@@ -1,0 +1,159 @@
+{"frames": {
+
+"skeleton-Walk_0.png":
+{
+	"frame": {"x":0,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_1.png":
+{
+	"frame": {"x":301,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_2.png":
+{
+	"frame": {"x":602,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_3.png":
+{
+	"frame": {"x":903,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_4.png":
+{
+	"frame": {"x":1204,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_5.png":
+{
+	"frame": {"x":1505,"y":0,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_6.png":
+{
+	"frame": {"x":0,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_7.png":
+{
+	"frame": {"x":301,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_8.png":
+{
+	"frame": {"x":602,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_9.png":
+{
+	"frame": {"x":903,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_10.png":
+{
+	"frame": {"x":1204,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_11.png":
+{
+	"frame": {"x":1505,"y":222,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_12.png":
+{
+	"frame": {"x":0,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_13.png":
+{
+	"frame": {"x":301,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_14.png":
+{
+	"frame": {"x":602,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_15.png":
+{
+	"frame": {"x":903,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_16.png":
+{
+	"frame": {"x":1204,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+},
+"skeleton-Walk_17.png":
+{
+	"frame": {"x":1505,"y":444,"w":301,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":222},
+	"sourceSize": {"w":301,"h":222}
+}},
+"animations": {
+	"skeleton-Walk": ["skeleton-Walk_0.png","skeleton-Walk_1.png","skeleton-Walk_2.png","skeleton-Walk_3.png","skeleton-Walk_4.png","skeleton-Walk_5.png","skeleton-Walk_6.png","skeleton-Walk_7.png","skeleton-Walk_8.png","skeleton-Walk_9.png","skeleton-Walk_10.png","skeleton-Walk_11.png","skeleton-Walk_12.png","skeleton-Walk_13.png","skeleton-Walk_14.png","skeleton-Walk_15.png","skeleton-Walk_16.png","skeleton-Walk_17.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "PlayerWalk.png",
+	"format": "RGBA8888",
+	"size": {"w":1806,"h":666},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:593305ff1a3e82f64173f1406838dce7:d472aa5bbbcd8a2be5a95dbbf01b4ac6:2245a927bfb59a58b8956b02e6923950$"
+}
+}

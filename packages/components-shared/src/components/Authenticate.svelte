@@ -77,12 +77,12 @@
 				// 	"payout": 33400000,
 				// 	"payoutMultiplier": 33.4,
 				// 	"active": true,
-				// 	"state": [...],
+				// 	"events": [...],
 				// 	"mode": "BONUS",
 				// 	"event": null
 				// }
 
-				if(authenticateData.round?.state) {
+				if((authenticateData.round as any)?.events || (authenticateData.round as any)?.state) {
 					// @ts-ignore
 					stateBet.lastBet =  authenticateData.round;
 				}

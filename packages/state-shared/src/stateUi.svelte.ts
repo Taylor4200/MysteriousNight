@@ -60,6 +60,8 @@ export const stateUi = $state({
 	freeSpinCounterShow: false,
 	freeSpinCounterCurrent: 0,
 	freeSpinCounterTotal: 0,
+	freeSpinCounterPosition: { x: 0, y: 0 }, // Configurable position for free spin counter
+	autoSpinCounterPosition: { x: 0, y: 0 }, // Configurable position for auto spin counter on mobile
 	menuOpen: false,
 	drawerFold: false,
 	drawerButtonShow: false,

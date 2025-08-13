@@ -1,5 +1,5 @@
 import { setup, fromPromise } from 'xstate';
-import { stateBet, stateBetDerived, stateModal } from 'state-shared';
+import { stateBet, stateBetDerived, stateModal, stateUi } from 'state-shared';
 import { bookEventAmountToNormalisedAmount } from 'utils-shared/amount';
 
 import { context, type Context } from './machineContext';
@@ -47,14 +47,23 @@ const checkIfSingleWinLimit = fromPromise(async () => {
 });
 
 const checkAutoSpinsCounter = fromPromise(async () => {
+	// Check if auto spins counter is greater than 0 after the spin
 	if (stateBet.autoSpinsCounter > 0) return 'continue';
 
+	// If counter is 0, end the auto bet
 	throw Error('End auto bet with autoSpinsCounter being 0');
 });
 
 const updateAutoSpinsCounter = fromPromise(async () => {
-	const newValue = stateBet.autoSpinsCounter - 1;
-	stateBet.autoSpinsCounter = newValue > 0 ? newValue : 0;
+	// Check if we're in free spins using stateUi.freeSpinCounterShow
+	const isInFreeSpins = stateUi.freeSpinCounterShow;
+	
+	// Only decrement auto spins counter during regular spins (not during free spins)
+	if (!isInFreeSpins) {
+		const newValue = stateBet.autoSpinsCounter - 1;
+		stateBet.autoSpinsCounter = newValue > 0 ? newValue : 0;
+	}
+	// During free spins, don't decrement the counter - let it continue for the full duration
 });
 
 export const createIntermediateMachineAutoBet = ({ bet }: { bet: IntermediateMachineBet }) => {
