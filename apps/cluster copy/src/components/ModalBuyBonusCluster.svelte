@@ -29,7 +29,7 @@
 		},
 		{
 			id: 'cluster-bonus-2', 
-			title: 'SUPER CLUSTER',
+			title: 'SUPER cc',
 			description: 'Access the super cluster bonus with massive rewards',
 			costMultiplier: 100,
 			buttonText: 'ACTIVATE'

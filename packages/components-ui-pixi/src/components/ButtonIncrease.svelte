@@ -11,6 +11,14 @@
 	const sizes = { width: UI_BASE_SIZE * 0.6, height: UI_BASE_SIZE * 0.6 }; // Smaller circular
 	const biggest = $derived(stateConfig.betAmountOptions[stateConfig.betAmountOptions.length - 1]);
 	const disabled = $derived(!context.stateXstateDerived.isIdle() || stateBet.betAmount === biggest);
+	let runnerActive = $state(false);
+	// Subscribe to runner-mode lifecycle (storybook Action path); cast to any to accept external events
+	(context.eventEmitter as any).subscribeOnMount({
+		playerStartRunning: () => { runnerActive = true; },
+		playerStopRunning: () => { runnerActive = false; },
+		runnerModeEnable: (e: { enabled: boolean }) => { runnerActive = e.enabled; },
+	});
+	const hidden = $derived(!context.stateXstateDerived.isIdle() || runnerActive);
 
 	const onpress = () => {
 		context.eventEmitter.broadcast({ type: 'soundPressGeneral' });
@@ -23,6 +31,7 @@
 	};
 </script>
 
+{#if !hidden}
 <Button {...props} {sizes} {onpress} {disabled}>
 	{#snippet children({ center, hovered })}
 		<Container {...center}>
@@ -63,3 +72,4 @@
 		</Container>
 	{/snippet}
 </Button>
+{/if}

@@ -22,14 +22,14 @@
 	const bonusOptions = [
 		{
 			id: 'cluster-bonus-1',
-			title: 'CLUSTER BONUS',
+			title: 'CLUSTERs',
 			description: 'Unlock the cluster bonus feature for enhanced gameplay',
 			costMultiplier: 50,
 			buttonText: 'ACTIVATE'
 		},
 		{
 			id: 'cluster-bonus-2', 
-			title: 'SUPER CLUSTER',
+			title: 'SUPERs',
 			description: 'Access the super cluster bonus with massive rewards',
 			costMultiplier: 100,
 			buttonText: 'ACTIVATE'

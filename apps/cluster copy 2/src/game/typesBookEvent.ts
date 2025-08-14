@@ -108,6 +108,13 @@ type BookEventCreateBonusSnapshot = {
 	bookEvents: BookEvent[];
 };
 
+// Knight's Favor meta multiplier (runner pre-animation)
+type BookEventSetKnightFavor = {
+  index: number;
+  type: 'setKnightFavor';
+  mult: number; // e.g., 0.5, 1, 2, 3, 5
+};
+
 export type BookEvent =
 	| BookEventReveal
 	| BookEventWinInfo
@@ -124,8 +131,10 @@ export type BookEvent =
 	// new
 	| BookEventUpdateGrid
 	| BookEventFreeSpinRetrigger
-	// customised
-	| BookEventCreateBonusSnapshot;
+  // customised
+  | BookEventCreateBonusSnapshot
+  // runner meta
+  | BookEventSetKnightFavor;
 
 export type Bet = BetType<BookEvent>;
 export type BookEventOfType<T> = Extract<BookEvent, { type: T }>;

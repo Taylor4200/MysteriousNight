@@ -30,3 +30,12 @@ export type EmitterEventGame =
 	| { type: 'playerMoved'; dx: number; playerX: number; playerY: number }
 	| { type: 'playerStartRunning' }
 	| { type: 'playerStopRunning' };
+
+// Extend global emitter events for runner visuals
+declare module './eventEmitter' {
+  interface EmitterEvent extends EmitterEventGame {
+    // Knight's Favor animation control
+    type: 'knightsFavorStart' | 'knightsFavorComplete';
+    mult?: number;
+  }
+}

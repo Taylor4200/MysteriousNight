@@ -62,13 +62,14 @@
 		<Sound />
 
 		<MainContainer>
-			<BoardFrame />
-		</MainContainer>
-
-		<MainContainer>
 			<AtmosphericElements />
 			<Board />
 			<Anticipations />
+		</MainContainer>
+
+		<!-- Render frame after board/atmospherics so it appears on top of frame_back -->
+		<MainContainer>
+			<BoardFrame />
 		</MainContainer>
 
 		<MainContainer>

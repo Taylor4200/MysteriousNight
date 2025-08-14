@@ -41,7 +41,7 @@
 			.filter(Boolean)
 	);
 
-	// Player movement state and position
+    // Player movement state and position
 	let isPlayerMoving = $state(false);
 	let playerDirection = $state<'left' | 'right'>('right');
     // Keep the player statically centered on screen
@@ -50,6 +50,8 @@
 	let currentFrame = $state(0);
     // Player world position for camera/parallax (does NOT affect on-screen x)
     let playerWorldX = $state(0);
+    // Exit phase: allow external controller to push hero off-screen
+    let exitPhase = $state(false);
 
 	// Keyboard controls for debugging
 	let keysPressed = $state<Set<string>>(new Set());
@@ -91,8 +93,11 @@
             const screenWidth = context.stateLayoutDerived.mainLayout().width;
             let dx = 0;
 			
-			// Handle movement
-            if (keysPressed.has('a') || keysPressed.has('arrowleft')) {
+			// Handle movement (skip when externally controlled; controller broadcasts movement)
+			if (externalControlRunning) {
+				isPlayerMoving = true;
+				dx = 0;
+			} else if (keysPressed.has('a') || keysPressed.has('arrowleft')) {
 				isPlayerMoving = true;
 				playerDirection = 'left';
                 // Accelerate left
@@ -122,13 +127,13 @@
             }
             wasMoving = isPlayerMoving;
 
-            if (dx !== 0) {
+            if (!externalControlRunning && !exitPhase && dx !== 0) {
                 // Advance world position and broadcast
                 playerWorldX += dx;
                 context.eventEmitter.broadcast({ type: 'playerMoved', dx, playerX, playerY });
                 // Camera follows world position; send for parallax to consume
                 context.eventEmitter.broadcast({ type: 'cameraMoved', worldX: playerWorldX });
-            } else if (currentSpeed === 0 && wasMoving) {
+            } else if (!externalControlRunning && !exitPhase && currentSpeed === 0 && wasMoving) {
                 // Ensure cameraMoved zero-delta freeze via stop event already wired elsewhere
                 context.eventEmitter.broadcast({ type: 'cameraMoved', worldX: playerWorldX });
             }
@@ -136,17 +141,27 @@
 		return () => clearInterval(interval);
 	});
 
+    // Scale animation speed with external counter rate during runner mode
+    let externalRate = $state(0);
+    context.eventEmitter.subscribeOnMount({
+        runnerCounterRate: (e: { rate: number }) => (externalRate = e.rate),
+    });
+
     $effect(() => {
         const walkCount = playerWalkTextures.length || 1;
         const idleCount = playerIdleTextures.length || 1;
         if (isPlayerMoving) {
-            // Walk animation - cycle through available frames
+            let last = performance.now();
             const interval = setInterval(() => {
-                currentFrame = (currentFrame + 1) % walkCount;
+                const now = performance.now();
+                const dt = (now - last) / 1000;
+                last = now;
+                const fps = Math.min(46, 3 + externalRate * 8); // 8..28 fps
+                const framesToAdvance = Math.max(1, Math.floor(fps * dt));
+                currentFrame = (currentFrame + framesToAdvance) % walkCount;
             }, 50);
             return () => clearInterval(interval);
         } else {
-            // Idle animation - cycle through available frames
             const interval = setInterval(() => {
                 currentFrame = (currentFrame + 1) % idleCount;
             }, 50);
@@ -173,27 +188,83 @@
     // Stumble states
     let stumblePlaying = $state(false);
     let stumbleFrozen = $state(false); // hold last frame on ground until next run
+    let stumbleTimeoutId: ReturnType<typeof setTimeout> | null = null;
+	// External controller flag to keep walk cycle active without keys
+	let externalControlRunning = $state(false);
     const startStumble = () => {
         if (stumblePlaying || stumbleFrozen || !hasRunAtLeastOnce || !hasDeath) return;
-        // Notify listeners that a stumble (loss) occurred
-        context.eventEmitter.broadcast({ type: 'playerStumbled' });
         stumblePlaying = true;
         stumbleFrozen = false;
         // auto-clear after animation duration
         const frames = playerDeathTextures.length || 20;
         const approxMs = Math.min(2000, Math.max(600, frames * 60));
-        setTimeout(() => {
+        if (stumbleTimeoutId) clearTimeout(stumbleTimeoutId);
+        stumbleTimeoutId = setTimeout(() => {
             stumblePlaying = false;
             stumbleFrozen = true;
+            stumbleTimeoutId = null;
         }, approxMs);
     };
     context.eventEmitter.subscribeOnMount({
+        // Explicit reset to original centered position when Knights Favor starts
+        knightsFavorStart: () => {
+            exitPhase = false;
+            externalControlRunning = false;
+            isPlayerMoving = false;
+            currentFrame = 0;
+            // Clear any stumble/death states immediately
+            if (stumbleTimeoutId) {
+                clearTimeout(stumbleTimeoutId);
+                stumbleTimeoutId = null;
+            }
+            stumblePlaying = false;
+            stumbleFrozen = false;
+            playerWorldX = 0;
+            playerX = context.stateLayoutDerived.mainLayout().width * 0.5;
+            playerY = context.stateLayoutDerived.mainLayout().height * 0.67;
+            context.eventEmitter.broadcast({ type: 'cameraMoved', worldX: 0 });
+        },
         playerStartRunning: () => {
             hasRunAtLeastOnce = true;
-            // Clear frozen stumble when a new run starts
+            // Force-reset any in-progress stumble/death animation when a new run starts
+            if (stumbleTimeoutId) {
+                clearTimeout(stumbleTimeoutId);
+                stumbleTimeoutId = null;
+            }
+            stumblePlaying = false;
             stumbleFrozen = false;
+            exitPhase = false;
+            externalControlRunning = true;
+            isPlayerMoving = true;
+            // Always begin from the first frame of the walk cycle for a crisp start
+            currentFrame = 0;
+            // Re-center hero on screen at the start of every action so he is visible immediately
+            playerX = context.stateLayoutDerived.mainLayout().width * 0.5;
+            playerY = context.stateLayoutDerived.mainLayout().height * 0.67;
         },
-        playerStopRunning: () => startStumble(),
+        runnerExitStart: () => {
+            exitPhase = true;
+            externalControlRunning = true; // keep walking animation while exiting
+        },
+        runnerExitEnd: () => {
+            exitPhase = false;
+        },
+        // During exit phase, accept external screen-space X so the hero visibly runs off-screen
+        playerMoved: (e: { dx: number; playerX: number; playerY: number }) => {
+            if (exitPhase) {
+                playerX = e.playerX;
+                playerY = e.playerY;
+            }
+        },
+        playerStopRunning: () => {
+            externalControlRunning = false;
+            isPlayerMoving = false;
+        },
+        playerStumbled: () => {
+            externalControlRunning = false;
+            isPlayerMoving = false;
+            startStumble();
+        },
     });
 
     // Stumble visual offset to align with current character

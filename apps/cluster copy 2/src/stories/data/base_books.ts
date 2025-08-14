@@ -3,8 +3,9 @@ export default [
 		id: 1,
 		payoutMultiplier: 0.0,
 		events: [
+			// meat removed
 			{
-				index: 0,
+				index: 1,
 				type: 'reveal',
 				board: [
 					[
@@ -89,8 +90,8 @@ export default [
 				gameType: 'basegame',
 				anticipation: [0, 0, 0, 0, 0, 0, 0],
 			},
-			{ index: 1, type: 'setTotalWin', amount: 0 },
-			{ index: 2, type: 'finalWin', amount: 0 },
+			{ index: 2, type: 'setTotalWin', amount: 0 },
+			{ index: 3, type: 'finalWin', amount: 0 },
 		],
 		criteria: 'basegame',
 		baseGameWins: 0.0,

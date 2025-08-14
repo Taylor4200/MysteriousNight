@@ -17,6 +17,16 @@
 	const totalHeight = spinButtonRadius * 2 + infoHeight + 20;
 
 	let isSpinning = $derived(!context.stateXstateDerived.isIdle());
+  // Hide the panel while runner-mode fake spin is active
+  let runnerActive = $state(false);
+
+  context.eventEmitter.subscribeOnMount({
+    runnerModeEnable: (e: { enabled: boolean }) => {
+      runnerActive = e.enabled;
+    },
+    playerStartRunning: () => (runnerActive = true),
+    playerStopRunning: () => (runnerActive = false),
+  });
 
 	function handleSpin() {
 		if (!isSpinning) {
@@ -26,6 +36,7 @@
 	}
 </script>
 
+{#if !runnerActive && !isSpinning}
 <Container x={props.anchor?.x ?? 0} y={props.anchor?.y ?? 0} pivot={anchorToPivot({ anchor: props.anchor ?? { x: 0.5, y: 0.5 }, sizes: { width: totalWidth, height: totalHeight } })}>
 	<!-- Spin Button -->
 	<Container x={0} y={0}>
@@ -44,3 +55,4 @@
 		<ButtonInfoCluster sizes={{ width: 120, height: infoHeight }} />
 	</Container>
 </Container>
+{/if}

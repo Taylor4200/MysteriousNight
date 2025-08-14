@@ -105,15 +105,7 @@ export default {
     preload: true,
   },
 
-  // Meat collectibles (visual-only)
-  // Static assets served by Storybook/SvelteKit at /assets/... (apps/cluster copy 2/static/assets/...)
-  meat_1: { type: 'sprite', src: '/assets/sprites/Meat/1.png', preload: true },
-  meat_2: { type: 'sprite', src: '/assets/sprites/Meat/2.png', preload: true },
-  meat_3: { type: 'sprite', src: '/assets/sprites/Meat/3.png', preload: true },
-  meat_4: { type: 'sprite', src: '/assets/sprites/Meat/4.png', preload: true },
-  meat_5: { type: 'sprite', src: '/assets/sprites/Meat/5.png', preload: true },
-  meat_6: { type: 'sprite', src: '/assets/sprites/Meat/6.png', preload: true },
-  meat_7: { type: 'sprite', src: '/assets/sprites/Meat/7.png', preload: true },
+  
 
   // Player Death (used as stumble animation)
   player_death_0: { type: 'sprite', src: new URL('../../assets/sprites/Characters/Player/Death/skeleton-Death_0.png', import.meta.url).href, preload: true },

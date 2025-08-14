@@ -101,13 +101,18 @@
         {@const s = scrollX[l.key]}
         {@const autoShift = offsets[l.key] ?? 0}
         {@const worldShiftEffective = l.key === 'bg1_sky' ? 0 : (-worldX * l.factor)}
-        {@const shiftForDraw = wrap(worldShiftEffective + autoShift, baseW)}
+        {@const tileW = (baseW ?? 0) * (ov.scaleX ?? 1) * scaleX}
+        {@const tileH = (baseH ?? 0) * (ov.scaleY ?? 1) * scaleY}
+        {@const shiftForDraw = wrap(worldShiftEffective + autoShift, tileW)}
+        {@const overlap = 2} <!-- px overlap to hide seams between tiles -->
         <!-- DECISION INDEX MUST BE CAMERA/PLAYER BASED, NOT LAYER-FACTOR BASED -->
-        {@const cameraIndexBase = Math.floor(worldX / baseW)}
-        <!-- Keep current and next camera tiles styled to avoid popping in the viewport -->
-        {#each [-1, 0, 1] as i (i)}
+        {@const cameraIndexBase = Math.floor(worldX / tileW)}
+        <!-- Determine how many tiles are needed to cover the viewport width for scaled layers -->
+        {@const tilesEachSide = Math.max(1, Math.ceil(baseW / tileW))}
+        {#each Array.from({ length: tilesEachSide * 2 + 1 }, (_, idx) => idx - tilesEachSide) as i (i)}
             {@const segmentIndex = cameraIndexBase + i}
             {@const isStylingLayer = (l.key === 'bg1_styling1' || l.key === 'bg1_styling2')}
+            {@const isSkyLayer = l.key === 'bg1_sky'}
             {@const forcedStyled = isStylingLayer && (i === 0 || i === 1)}
             {@const showStyling = forcedStyled ? true : ensureStylingDecision(segmentIndex)}
             {@const tileVisible = isStylingLayer ? (!DISABLE_STYLING && showStyling) : true}
@@ -116,10 +121,10 @@
                     key={l.key}
                     zIndex={l.z}
                     anchor={0.5}
-                    x={bgX + (ov.offsetX ?? 0) + shiftForDraw + i * baseW}
-                    y={bgY + (ov.offsetY ?? 0)}
-                    width={baseW}
-                    height={baseH}
+                    x={isSkyLayer ? (bgX + (ov.offsetX ?? 0) + shiftForDraw + i * tileW) : Math.round(bgX + (ov.offsetX ?? 0) + shiftForDraw + i * tileW)}
+                    y={isSkyLayer ? (bgY + (ov.offsetY ?? 0)) : Math.round(bgY + (ov.offsetY ?? 0))}
+                    width={tileW + overlap}
+                    height={tileH}
                     scale={{ x: (ov.scaleX ?? 1) * scaleX, y: (ov.scaleY ?? 1) * scaleY }}
                 />
             {/if}

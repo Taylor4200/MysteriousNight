@@ -36,9 +36,9 @@ import ModalsCluster from './ModalsCluster.svelte';
 	import SpinPanelCluster from './SpinPanelCluster.svelte';
 	import ClusterModalGameRules from './ClusterModalGameRules.svelte';
     
-	import DustParticleManager from './DustParticleManager.svelte';
-    import MeatField from './MeatField.svelte';
+import DustParticleManager from './DustParticleManager.svelte';
     import RunWinCounter from './RunWinCounter.svelte';
+    import KnightsFavor from './KnightsFavor.svelte';
 
 	const context = getContext();
 	let showInfo = $state(false);
@@ -110,19 +110,17 @@ import ModalsCluster from './ModalsCluster.svelte';
         <!-- Dust Particle System -->
         <DustParticleManager />
 
-        <!-- Visual-only collectible field -->
-        <MeatField />
-
         <!-- Visual-only run win counter above player's head -->
         <RunWinCounter />
 
+        <!-- Knight's Favor overlay and badge -->
+        <KnightsFavor />
+
         <UI>
 			{#snippet gameName()}
-				<UiGameName name="CLUSTER GAME" />
+				<UiGameName name="Sir WinsAlot Runs" />
 			{/snippet}
             {#snippet logo()}{/snippet}
-			{#snippet buttonPayTable(buttonProps: any)}{/snippet}
-			{#snippet buttonGameRules(buttonProps: any)}{/snippet}
 		</UI>
 
 		<!-- Cluster spin panel (no paytable) -->

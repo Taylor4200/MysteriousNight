@@ -16,9 +16,9 @@
 	import { randomInteger } from 'utils-shared/random';
 
 	import Game from '../components/Game.svelte';
-	import { setContext } from '../game/context';
-	import { playBet } from '../game/utils';
-	import books from './data/bonus_books';
+  import { setContext } from '../game/context';
+  import { playRunnerFromBook } from '../game/utils';
+  import runnerBonusBooks from './data/runner_bonus_books';
 
 	setContext();
 </script>
@@ -37,16 +37,15 @@
 {/snippet}
 
 <Story
-	name="random"
-	args={templateArgs({
-		skipLoadingScreen: true,
-		data: {},
-		action: async () => {
-			const index = randomInteger({ min: 0, max: books.length - 1 });
-			const data = books[index];
-			console.log('Running a book at index', index);
-			await playBet({ ...data, state: data.events });
-		},
-	})}
-	{template}
+  name="runner-bonus (action button)"
+  args={templateArgs({
+    skipLoadingScreen: true,
+    data: {},
+    action: async () => {
+      const index = randomInteger({ min: 0, max: runnerBonusBooks.length - 1 });
+      const data = runnerBonusBooks[index];
+      await playRunnerFromBook({ ...data, state: data.events } as any);
+    },
+  })}
+  {template}
 />

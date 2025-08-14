@@ -17,7 +17,10 @@
 
 	import Game from '../components/Game.svelte';
 	import { setContext } from '../game/context';
-	import { playBet } from '../game/utils';
+    import { playBet, playRunnerFake, playRunnerFromBook } from '../game/utils';
+    import runnerBaseBooks from './data/runner_base_books';
+    import runnerMaxBook from './data/runner_max_book';
+    import runnerBonusBooks from './data/runner_bonus_books';
 	import books from './data/base_books';
 
 	setContext();
@@ -37,16 +40,57 @@
 {/snippet}
 
 <Story
-	name="random"
+    name="random"
 	args={templateArgs({
 		skipLoadingScreen: true,
 		data: {},
-		action: async () => {
-			const index = randomInteger({ min: 0, max: books.length - 1 });
-			const data = books[index];
-			console.log('Running a book at index', index);
-			await playBet({ ...data, state: data.events });
-		},
+        action: async () => {
+            // Random base runner book (no special max chance)
+            const index = randomInteger({ min: 0, max: runnerBaseBooks.length - 1 });
+            const data = runnerBaseBooks[index];
+            await playRunnerFromBook({ ...data, state: data.events } as any);
+        },
 	})}
 	{template}
+/>
+
+<Story
+  name="runner fake (action button)"
+  args={templateArgs({
+    skipLoadingScreen: true,
+    data: {},
+    action: async () => {
+      // Drive the runner by playing a random runner-base book using the runner pipeline
+      const index = randomInteger({ min: 0, max: runnerBaseBooks.length - 1 });
+      const data = runnerBaseBooks[index];
+      await playRunnerFromBook({ ...data, state: data.events } as any);
+    },
+  })}
+  {template}
+/>
+
+<Story
+  name="runner MAX 7500x"
+  args={templateArgs({
+    skipLoadingScreen: true,
+    data: {},
+    action: async () => {
+      await playRunnerFromBook({ ...runnerMaxBook, state: runnerMaxBook.events } as any);
+    },
+  })}
+  {template}
+/>
+
+<Story
+  name="mode_bonus (runner-bonus)"
+  args={templateArgs({
+    skipLoadingScreen: true,
+    data: {},
+    action: async () => {
+      const index = randomInteger({ min: 0, max: runnerBonusBooks.length - 1 });
+      const data = runnerBonusBooks[index];
+      await playRunnerFromBook({ ...data, state: data.events } as any);
+    },
+  })}
+  {template}
 />

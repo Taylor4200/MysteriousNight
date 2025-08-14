@@ -12,6 +12,15 @@
 	const { stateXstateDerived, eventEmitter } = getContext();
 	const sizes = { width: UI_BASE_SIZE * 1.4, height: UI_BASE_SIZE * 0.9 }; // More rectangular
 	const disabled = $derived(!stateXstateDerived.isIdle());
+	let runnerActive = $state(false);
+	const hidden = $derived(!stateXstateDerived.isIdle() || runnerActive);
+	// Also hide in runner mode even when not in a traditional spin flow (e.g., story Action)
+	// Subscribe to runner-mode lifecycle (storybook Action path); cast to any to accept external events
+	(eventEmitter as any).subscribeOnMount({
+		runnerModeEnable: (e: { enabled: boolean }) => { runnerActive = e.enabled; },
+		playerStartRunning: () => { runnerActive = true; },
+		playerStopRunning: () => { runnerActive = false; },
+	});
 	const active = $derived(stateBetDerived.activeBetMode()?.type === 'activate');
 
 	const openModal = () => (stateModal.modal = { name: 'buyBonus' });
@@ -40,6 +49,7 @@
 	};
 </script>
 
+{#if !hidden}
 <Button {...props} {sizes} {disabled} {onpress}>
 	{#snippet children({ center, hovered, pressed })}
 		{@const state = getState({
@@ -105,3 +115,4 @@
 		/>
 	{/snippet}
 </Button>
+{/if}

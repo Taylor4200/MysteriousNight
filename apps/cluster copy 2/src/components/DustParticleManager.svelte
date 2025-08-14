@@ -57,7 +57,7 @@
 		const footOffset = 100; // Player foot offset
 		
 		// X positioning - automatically invert based on direction
-		const baseXOffset = -50; // Base offset (negative = left side)
+		const baseXOffset = -5; // Base offset (negative = left side)
 		const xRandomness = 15; // Random spread range
 		
 		// Invert the X offset when direction changes
